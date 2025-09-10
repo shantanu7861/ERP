@@ -14,7 +14,7 @@ import uuid
 import shutil
 
 # Database setup
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://postgres:Shantanu%40123@localhost:5432/footwear_erp")
+DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://erp_lmx7_user:Bv6xeEg8ZdWRFQYnkcoYYAxOljredyDa@dpg-d30ji4vdiees7380n3rg-a/erp_lmx7")
 
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
