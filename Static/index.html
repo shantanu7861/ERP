@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FootwearERP - Manufacturing Management System</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <div class="app-logo">
+          <i class="fas fa-industry"></i>
+          <h1>FootwearERP</h1>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <ul>
+          <li>
+            <a href="#dashboard" class="nav-link active" data-page="dashboard">
+              <i class="fas fa-chart-bar"></i> Dashboard
+            </a>
+          </li>
+          <li>
+            <a href="#orders" class="nav-link" data-page="orders">
+              <i class="fas fa-shopping-cart"></i> Orders
+            </a>
+          </li>
+          <li>
+            <a href="#documents" class="nav-link" data-page="documents">
+              <i class="fas fa-folder-open"></i> Documents
+            </a>
+          </li>
+          <li>
+            <a href="#quality" class="nav-link" data-page="quality">
+              <i class="fas fa-clipboard-check"></i> Quality Control
+            </a>
+          </li>
+          <li>
+            <a href="#production" class="nav-link" data-page="production">
+              <i class="fas fa-cogs"></i> Production
+            </a>
+          </li>
+        </ul>
+
+        <!-- External Tools -->
+        <div class="external-tools">
+          <h3>External Tools</h3>
+          <ul>
+            <li>
+              <a
+                href="https://open-aicode-uqjmrr2kqqusmuittt3pqq.streamlit.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <i class="fas fa-robot"></i> QC AI Bot
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Dashboard Page -->
+      <div id="dashboard" class="page active">
+        <div class="page-header">
+          <h2>Dashboard Overview</h2>
+          <p>Manufacturing performance and key metrics</p>
+        </div>
+
+        <!-- KPI Cards -->
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-icon blue">
+              <i class="fas fa-shopping-cart"></i>
+            </div>
+            <div class="kpi-content">
+              <h3 id="active-orders">0</h3>
+              <p>Active Orders</p>
+            </div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-icon green">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="kpi-content">
+              <h3 id="completed-orders">0</h3>
+              <p>Completed Orders</p>
+            </div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-icon yellow">
+              <i class="fas fa-clock"></i>
+            </div>
+            <div class="kpi-content">
+              <h3 id="pending-qc">0</h3>
+              <p>Pending QC</p>
+            </div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-icon purple">
+              <i class="fas fa-times-circle"></i>
+            </div>
+            <div class="kpi-content">
+              <h3 id="monthly-revenue">0</h3>
+              <p>Rejected Orders</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Production Pipeline -->
+        <div class="card">
+          <div class="card-header">
+            <h3>Production Pipeline</h3>
+          </div>
+          <div class="card-content">
+            <div class="pipeline-stages" id="pipeline-stages">
+              <!-- Populated by JavaScript -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Orders Page -->
+      <div id="orders" class="page">
+        <div class="page-header">
+          <div>
+            <h2>Production Orders</h2>
+            <p>Manage and track all footwear production orders</p>
+          </div>
+          <button class="btn btn-primary" onclick="openNewOrderModal()">
+            <i class="fas fa-plus"></i> New Order
+          </button>
+        </div>
+
+        <!-- Recent Orders -->
+        <div class="card">
+          <div class="card-header">
+            <h3>Recent Orders</h3>
+          </div>
+          <div class="card-content">
+            <div class="recent-orders" id="recent-orders">
+              <!-- Populated by JavaScript -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Orders Table -->
+        <div class="card">
+          <div class="card-header">
+            <h3>All Production Orders</h3>
+            <div class="table-filters">
+              <select id="stage-filter">
+                <option value="">All Stages</option>
+                <option value="cutting">Cutting</option>
+                <option value="stitching">Stitching</option>
+                <option value="lasting">Lasting</option>
+                <option value="finishing">Finishing</option>
+                <option value="packing">Packing</option>
+              </select>
+              <input
+                type="text"
+                id="search-orders"
+                placeholder="Search orders..."
+              />
+            </div>
+          </div>
+          <div class="card-content">
+            <div class="table-container">
+              <table id="orders-table">
+                <thead>
+                  <tr>
+                    <th>Order ID</th>
+                    <th>Customer</th>
+                    <th>Style</th>
+                    <th>Quantity</th>
+                    <th>Stage</th>
+                    <th>Due Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="orders-tbody">
+                  <!-- Populated by JavaScript -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Documents Page -->
+      <div id="documents" class="page">
+        <div class="page-header">
+          <h2>Document Management</h2>
+          <p>Upload, organize, and access all order-related documents</p>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions-grid">
+          <div
+            class="quick-action-card"
+            onclick="handleDocumentAction('upload-po')"
+          >
+            <div class="action-icon blue">
+              <i class="fas fa-file-text"></i>
+            </div>
+            <h3>Upload PO</h3>
+            <p>Upload purchase order documents</p>
+          </div>
+
+          <div
+            class="quick-action-card"
+            onclick="handleDocumentAction('bom-files')"
+          >
+            <div class="action-icon green">
+              <i class="fas fa-file-spreadsheet"></i>
+            </div>
+            <h3>BOM Files</h3>
+            <p>Manage bill of materials</p>
+          </div>
+
+          <div
+            class="quick-action-card"
+            onclick="handleDocumentAction('qc-reports')"
+          >
+            <div class="action-icon purple">
+              <i class="fas fa-clipboard-check"></i>
+            </div>
+            <h3>QC Reports</h3>
+            <p>Quality control documentation</p>
+          </div>
+
+          <div
+            class="quick-action-card"
+            onclick="handleDocumentAction('dispatch-docs')"
+          >
+            <div class="action-icon orange">
+              <i class="fas fa-truck"></i>
+            </div>
+            <h3>Dispatch Docs</h3>
+            <p>Shipping and dispatch documents</p>
+          </div>
+        </div>
+
+        <!-- Documents Table -->
+        <div class="card">
+          <div class="card-header">
+            <h3>Document Repository</h3>
+            <div class="table-filters">
+              <select id="document-type-filter">
+                <option value="">All Documents</option>
+                <option value="purchase_order">Purchase Orders</option>
+                <option value="bom">BOM Files</option>
+                <option value="qc_report">QC Reports</option>
+                <option value="dispatch_document">Dispatch Documents</option>
+              </select>
+              <input
+                type="text"
+                id="search-documents"
+                placeholder="Search documents..."
+              />
+            </div>
+          </div>
+          <div class="card-content">
+            <div class="table-container">
+              <table id="documents-table">
+                <thead>
+                  <tr>
+                    <th>Document</th>
+                    <th>Order ID</th>
+                    <th>Type</th>
+                    <th>Uploaded By</th>
+                    <th>Date</th>
+                    <th>Size</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="documents-tbody">
+                  <!-- Populated by JavaScript -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quality Control Page -->
+      <div id="quality" class="page">
+        <div class="page-header">
+          <div>
+            <h2>Quality Control</h2>
+            <p>Manage QC inspections and reports for all footwear orders</p>
+          </div>
+          <button class="btn btn-accent" onclick="openQcBot()">
+            <i class="fas fa-robot"></i> QC AI Bot
+            <i class="fas fa-external-link-alt"></i>
+          </button>
+        </div>
+
+        <!-- QC Summary Cards -->
+        <div class="qc-summary-grid">
+          <div class="qc-summary-card green">
+            <div class="qc-icon">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="qc-content">
+              <h3 id="qc-passed">0</h3>
+              <p>Orders Passed</p>
+            </div>
+          </div>
+
+          <div class="qc-summary-card yellow">
+            <div class="qc-icon">
+              <i class="fas fa-clock"></i>
+            </div>
+            <div class="qc-content">
+              <h3 id="qc-pending">0</h3>
+              <p>Pending Review</p>
+            </div>
+          </div>
+
+          <div class="qc-summary-card red">
+            <div class="qc-icon">
+              <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <div class="qc-content">
+              <h3 id="qc-failed">0</h3>
+              <p>Failed QC</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- QC Reports Table -->
+        <div class="card">
+          <div class="card-header">
+            <h3>QC Reports by Style</h3>
+            <div class="table-filters">
+              <select id="qc-status-filter">
+                <option value="">All Statuses</option>
+                <option value="passed">Passed</option>
+                <option value="failed">Failed</option>
+                <option value="pending">Pending</option>
+              </select>
+              <button class="btn btn-primary" onclick="openNewQcReportModal()">
+                New QC Report
+              </button>
+            </div>
+          </div>
+          <div class="card-content">
+            <div class="table-container">
+              <table id="qc-reports-table">
+                <thead>
+                  <tr>
+                    <th>Order ID</th>
+                    <th>Style</th>
+                    <th>Inspector</th>
+                    <th>Inspection Date</th>
+                    <th>Defects Found</th>
+                    <th>QC Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="qc-reports-tbody">
+                  <!-- Populated by JavaScript -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Production Page -->
+      <div id="production" class="page">
+        <div class="page-header">
+          <h2>Production Tracking</h2>
+          <p>Monitor production stages and update order progress</p>
+        </div>
+
+        <!-- Production Pipeline Overview -->
+        <div class="card">
+          <div class="card-header">
+            <h3>Production Pipeline</h3>
+          </div>
+          <div class="card-content">
+            <div class="production-pipeline" id="production-pipeline">
+              <!-- Populated by JavaScript -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Production Orders Table -->
+        <div class="card">
+          <div class="card-header">
+            <h3>Production Orders</h3>
+            <div class="table-filters">
+              <select id="production-stage-filter">
+                <option value="">All Stages</option>
+                <option value="cutting">Cutting</option>
+                <option value="stitching">Stitching</option>
+                <option value="lasting">Lasting</option>
+                <option value="finishing">Finishing</option>
+                <option value="packing">Packing</option>
+              </select>
+              <button class="btn btn-primary">Update Stage</button>
+            </div>
+          </div>
+          <div class="card-content">
+            <div class="table-container">
+              <table id="production-orders-table">
+                <thead>
+                  <tr>
+                    <th><input type="checkbox" id="select-all" /></th>
+                    <th>Order ID</th>
+                    <th>Style</th>
+                    <th>Current Stage</th>
+                    <th>Progress</th>
+                    <th>Assignee</th>
+                    <th>Due Date</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="production-orders-tbody">
+                  <!-- Populated by JavaScript -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- New Order Modal -->
+    <div id="new-order-modal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Create New Order</h3>
+          <button class="modal-close" onclick="closeNewOrderModal()">
+            &times;
+          </button>
+        </div>
+        <form id="new-order-form" enctype="multipart/form-data">
+          <div class="form-section">
+            <label>Upload Purchase Order</label>
+            <div class="file-upload">
+              <div
+                class="upload-area"
+                onclick="document.getElementById('po-file').click()"
+              >
+                <i class="fas fa-cloud-upload-alt"></i>
+                <p>Drop PO file here or click to browse</p>
+                <small>PDF, Excel, or Word documents up to 10MB</small>
+              </div>
+              <input
+                type="file"
+                id="po-file"
+                name="po_file"
+                accept=".pdf,.xlsx,.xls,.doc,.docx"
+                style="display: none"
+              />
+              <div class="file-info" id="file-info" style="display: none"></div>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="customer-id">Customer ID *</label>
+              <input type="text" id="customer-id" name="customer_id" required />
+            </div>
+            <div class="form-group">
+              <label for="customer-name">Customer Name *</label>
+              <input
+                type="text"
+                id="customer-name"
+                name="customer_name"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="style">Style *</label>
+              <input type="text" id="style" name="style" required />
+            </div>
+            <div class="form-group">
+              <label for="quantity">Quantity *</label>
+              <input
+                type="number"
+                id="quantity"
+                name="quantity"
+                min="1"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="order-amount">Order Amount</label>
+              <input
+                type="text"
+                id="order-amount"
+                name="order_amount"
+                placeholder="$0.00"
+              />
+            </div>
+            <div class="form-group">
+              <label for="due-date">Due Date</label>
+              <input type="date" id="due-date" name="due_date" />
+            </div>
+            <div class="form-group">
+              <label for="priority">Priority</label>
+              <select id="priority" name="priority">
+                <option value="normal">Normal</option>
+                <option value="high">High</option>
+                <option value="urgent">Urgent</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="customer-requirements">Customer Requirements</label>
+            <textarea
+              id="customer-requirements"
+              name="customer_requirements"
+              rows="3"
+              placeholder="Special instructions or requirements..."
+            ></textarea>
+          </div>
+
+          <div class="modal-actions">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              onclick="closeNewOrderModal()"
+            >
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-primary">Create Order</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+  </body>
+</html>
