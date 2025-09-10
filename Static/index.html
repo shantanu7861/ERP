@@ -9,6 +9,1064 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
       rel="stylesheet"
     />
+    <style>
+      /* CSS Variables for Dark Theme */
+:root {
+  --background: #0a0a0b;
+  --foreground: #e5e5e5;
+  --card: #1a1a1d;
+  --card-foreground: #e5e5e5;
+  --primary: #4285f4;
+  --primary-foreground: #ffffff;
+  --secondary: #404040;
+  --secondary-foreground: #e5e5e5;
+  --muted: #404040;
+  --muted-foreground: #b5b5b5;
+  --accent: #20b2aa;
+  --accent-foreground: #ffffff;
+  --destructive: #f87171;
+  --destructive-foreground: #ffffff;
+  --border: #333333;
+  --input: #333333;
+  --ring: #4285f4;
+  --radius: 8px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--background);
+  color: var(--foreground);
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Sidebar Styles */
+.sidebar {
+  width: 260px;
+  background-color: var(--card);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.sidebar-header {
+  padding: 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.app-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.app-logo i {
+  width: 32px;
+  height: 32px;
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.app-logo h1 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.sidebar-nav {
+  flex: 1;
+  padding: 16px;
+}
+
+.sidebar-nav ul {
+  list-style: none;
+  margin-bottom: 24px;
+}
+
+.sidebar-nav li {
+  margin-bottom: 8px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  color: var(--muted-foreground);
+  text-decoration: none;
+  border-radius: var(--radius);
+  transition: all 0.2s;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.nav-link:hover {
+  color: var(--foreground);
+  background-color: var(--muted);
+}
+
+.nav-link.active {
+  color: var(--primary);
+  background-color: rgba(66, 133, 244, 0.1);
+}
+
+.nav-link i {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.external-tools {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.external-tools h3 {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted-foreground);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.external-tools ul {
+  list-style: none;
+}
+
+.external-tools a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  color: var(--muted-foreground);
+  text-decoration: none;
+  border-radius: var(--radius);
+  transition: all 0.2s;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.external-tools a:hover {
+  color: var(--foreground);
+  background-color: var(--muted);
+}
+
+/* Main Content Styles */
+.main-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+}
+
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 32px;
+}
+
+.page-header h2 {
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--foreground);
+  margin-bottom: 8px;
+}
+
+.page-header p {
+  color: var(--muted-foreground);
+  font-size: 14px;
+}
+
+/* Button Styles */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.btn-primary:hover {
+  background-color: rgba(66, 133, 244, 0.9);
+}
+
+.btn-secondary {
+  background-color: var(--secondary);
+  color: var(--secondary-foreground);
+}
+
+.btn-secondary:hover {
+  background-color: rgba(64, 64, 64, 0.8);
+}
+
+.btn-accent {
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+}
+
+.btn-accent:hover {
+  background-color: rgba(32, 178, 170, 0.9);
+}
+
+.btn-sm {
+  padding: 8px 12px;
+  font-size: 12px;
+}
+
+/* Card Styles */
+.card {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 24px;
+}
+
+.card-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-header h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.card-content {
+  padding: 24px;
+}
+
+/* KPI Grid */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.kpi-card {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.kpi-card .kpi-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  font-size: 20px;
+}
+
+.kpi-icon.blue {
+  background-color: rgba(66, 133, 244, 0.2);
+  color: #4285f4;
+}
+
+.kpi-icon.green {
+  background-color: rgba(34, 197, 94, 0.2);
+  color: #22c55e;
+}
+
+.kpi-icon.yellow {
+  background-color: rgba(234, 179, 8, 0.2);
+  color: #eab308;
+}
+
+.kpi-icon.purple {
+  background-color: rgba(168, 85, 247, 0.2);
+  color: #a855f7;
+}
+
+.kpi-content h3 {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--foreground);
+  margin-bottom: 4px;
+}
+
+.kpi-content p {
+  color: var(--muted-foreground);
+  font-size: 14px;
+}
+
+/* Pipeline Stages */
+.pipeline-stages {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 16px;
+}
+
+.pipeline-stage {
+  text-align: center;
+  padding: 16px;
+  background-color: rgba(255, 255, 255, 0.02);
+  border-radius: var(--radius);
+}
+
+.pipeline-stage .stage-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 12px;
+  font-size: 24px;
+}
+
+.pipeline-stage h4 {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--foreground);
+  margin-bottom: 4px;
+  text-transform: capitalize;
+}
+
+.pipeline-stage .count {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.pipeline-stage .label {
+  font-size: 12px;
+  color: var(--muted-foreground);
+}
+
+/* Stage Colors - Added missing sourcing and pasting */
+.stage-sourcing .stage-icon,
+.stage-sourcing .count {
+  background-color: rgba(34, 197, 94, 0.2);
+  color: #22c55e;
+}
+
+.stage-cutting .stage-icon,
+.stage-cutting .count {
+  background-color: rgba(66, 133, 244, 0.2);
+  color: #4285f4;
+}
+
+.stage-stitching .stage-icon,
+.stage-stitching .count {
+  background-color: rgba(234, 179, 8, 0.2);
+  color: #eab308;
+}
+
+.stage-lasting .stage-icon,
+.stage-lasting .count {
+  background-color: rgba(168, 85, 247, 0.2);
+  color: #a855f7;
+}
+
+.stage-pasting .stage-icon,
+.stage-pasting .count {
+  background-color: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+}
+
+.stage-finishing .stage-icon,
+.stage-finishing .count {
+  background-color: rgba(249, 115, 22, 0.2);
+  color: #f97316;
+}
+
+/* Order Type Selector */
+.order-type-selector {
+  margin-bottom: 24px;
+}
+
+.order-type-tabs {
+  display: flex;
+  gap: 8px;
+}
+
+.tab-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background-color: var(--muted);
+  color: var(--muted-foreground);
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.tab-btn.active {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.tab-btn:hover:not(.active) {
+  background-color: rgba(64, 64, 64, 0.8);
+  color: var(--foreground);
+}
+
+/* Order Section */
+.order-section {
+  display: none;
+}
+
+.order-section.active {
+  display: block;
+}
+
+/* Quick Actions Grid */
+.quick-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.quick-action-card {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.quick-action-card:hover {
+  background-color: rgba(255, 255, 255, 0.02);
+  transform: translateY(-2px);
+}
+
+.quick-action-card .action-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  font-size: 20px;
+}
+
+.action-icon.blue {
+  background-color: rgba(66, 133, 244, 0.2);
+  color: #4285f4;
+}
+
+.action-icon.green {
+  background-color: rgba(34, 197, 94, 0.2);
+  color: #22c55e;
+}
+
+.action-icon.purple {
+  background-color: rgba(168, 85, 247, 0.2);
+  color: #a855f7;
+}
+
+.action-icon.orange {
+  background-color: rgba(249, 115, 22, 0.2);
+  color: #f97316;
+}
+
+.quick-action-card h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--foreground);
+  margin-bottom: 8px;
+}
+
+.quick-action-card p {
+  color: var(--muted-foreground);
+  font-size: 14px;
+}
+
+/* QC Summary Grid */
+.qc-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.qc-summary-card {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.qc-summary-card.green {
+  border-color: rgba(34, 197, 94, 0.3);
+  background-color: rgba(34, 197, 94, 0.05);
+}
+
+.qc-summary-card.yellow {
+  border-color: rgba(234, 179, 8, 0.3);
+  background-color: rgba(234, 179, 8, 0.05);
+}
+
+.qc-summary-card.red {
+  border-color: rgba(239, 68, 68, 0.3);
+  background-color: rgba(239, 68, 68, 0.05);
+}
+
+.qc-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.qc-summary-card.green .qc-icon {
+  background-color: rgba(34, 197, 94, 0.2);
+  color: #22c55e;
+}
+
+.qc-summary-card.yellow .qc-icon {
+  background-color: rgba(234, 179, 8, 0.2);
+  color: #eab308;
+}
+
+.qc-summary-card.red .qc-icon {
+  background-color: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+}
+
+.qc-content h3 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--foreground);
+  margin-bottom: 4px;
+}
+
+.qc-content p {
+  color: var(--muted-foreground);
+  font-size: 14px;
+}
+
+/* Recent Orders */
+.recent-orders {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.recent-order-card {
+  padding: 16px;
+  background-color: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.recent-order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.order-number {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--foreground);
+}
+
+.recent-order-card .order-style {
+  color: var(--muted-foreground);
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.recent-order-card .due-date {
+  color: var(--muted-foreground);
+  font-size: 12px;
+}
+
+/* Table Styles */
+.table-filters {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.table-filters select,
+.table-filters input {
+  padding: 8px 12px;
+  background-color: var(--input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--foreground);
+  font-size: 14px;
+}
+
+.table-filters input {
+  width: 250px;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+}
+
+th {
+  background-color: rgba(255, 255, 255, 0.02);
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+td {
+  color: var(--muted-foreground);
+}
+
+tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+/* Badge Styles */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.badge.stage-sourcing {
+  background-color: rgba(34, 197, 94, 0.2);
+  color: #22c55e;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.badge.stage-cutting {
+  background-color: rgba(66, 133, 244, 0.2);
+  color: #4285f4;
+  border: 1px solid rgba(66, 133, 244, 0.3);
+}
+
+.badge.stage-stitching {
+  background-color: rgba(234, 179, 8, 0.2);
+  color: #eab308;
+  border: 1px solid rgba(234, 179, 8, 0.3);
+}
+
+.badge.stage-lasting {
+  background-color: rgba(168, 85, 247, 0.2);
+  color: #a855f7;
+  border: 1px solid rgba(168, 85, 247, 0.3);
+}
+
+.badge.stage-pasting {
+  background-color: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.badge.stage-finishing {
+  background-color: rgba(249, 115, 22, 0.2);
+  color: #f97316;
+  border: 1px solid rgba(249, 115, 22, 0.3);
+}
+
+.badge.status-pending {
+  background-color: rgba(234, 179, 8, 0.2);
+  color: #eab308;
+}
+
+.badge.status-in-progress {
+  background-color: rgba(66, 133, 244, 0.2);
+  color: #4285f4;
+}
+
+.badge.status-completed {
+  background-color: rgba(34, 197, 94, 0.2);
+  color: #22c55e;
+}
+
+.badge.status-delayed {
+  background-color: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+}
+
+.badge.qc-passed {
+  background-color: rgba(34, 197, 94, 0.2);
+  color: #22c55e;
+}
+
+.badge.qc-pending {
+  background-color: rgba(234, 179, 8, 0.2);
+  color: #eab308;
+}
+
+.badge.qc-failed {
+  background-color: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+}
+
+/* Progress Bar */
+.progress-bar {
+  width: 100px;
+  height: 8px;
+  background-color: var(--muted);
+  border-radius: 4px;
+  overflow: hidden;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: var(--primary);
+  transition: width 0.3s ease;
+}
+
+/* Production Pipeline */
+.production-pipeline {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
+}
+
+.production-stage {
+  text-align: center;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.02);
+  border-radius: var(--radius);
+}
+
+.production-stage .stage-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 12px;
+  font-size: 24px;
+}
+
+.production-stage h4 {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--foreground);
+  margin-bottom: 8px;
+  text-transform: capitalize;
+}
+
+.production-stage .count {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.production-stage .label {
+  font-size: 12px;
+  color: var(--muted-foreground);
+}
+
+/* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+.modal.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  max-width: 600px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.modal-header h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: var(--muted-foreground);
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-close:hover {
+  color: var(--foreground);
+}
+
+/* Form Styles */
+form {
+  padding: 24px;
+}
+
+.form-section {
+  margin-bottom: 24px;
+}
+
+.form-section label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--foreground);
+  margin-bottom: 8px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--foreground);
+  margin-bottom: 6px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 10px 12px;
+  background-color: var(--input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--foreground);
+  font-size: 14px;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.2);
+}
+
+/* File Upload */
+.file-upload {
+  margin-bottom: 16px;
+}
+
+.upload-area {
+  border: 2px dashed var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.02);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.upload-area:hover {
+  border-color: var(--primary);
+  background-color: rgba(66, 133, 244, 0.05);
+}
+
+.upload-area i {
+  font-size: 32px;
+  color: var(--muted-foreground);
+  margin-bottom: 12px;
+}
+
+.upload-area p {
+  color: var(--foreground);
+  margin-bottom: 8px;
+}
+
+.upload-area small {
+  color: var(--muted-foreground);
+  font-size: 12px;
+}
+
+.file-info {
+  margin-top: 12px;
+  padding: 8px 12px;
+  background-color: rgba(66, 133, 244, 0.1);
+  border: 1px solid rgba(66, 133, 244, 0.3);
+  border-radius: var(--radius);
+  color: var(--primary);
+  font-size: 14px;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+/* Action Buttons */
+.action-btn {
+  background: none;
+  border: none;
+  padding: 8px;
+  color: var(--muted-foreground);
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.action-btn:hover {
+  color: var(--foreground);
+  background-color: var(--muted);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  body {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    order: 2;
+  }
+
+  .main-content {
+    order: 1;
+    height: calc(100vh - 200px);
+  }
+
+  .page-header {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .kpi-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .quick-actions-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .qc-summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .table-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .table-filters input {
+    width: 100%;
+  }
+
+  .order-type-tabs {
+    flex-direction: column;
+  }
+}
+    </style>
   </head>
   <body>
     <!-- Sidebar -->
@@ -113,7 +1171,7 @@
               <i class="fas fa-times-circle"></i>
             </div>
             <div class="kpi-content">
-              <h3 id="monthly-revenue">0</h3>
+              <h3 id="monthly-revenue"></h3>
               <p>Rejected Orders</p>
             </div>
           </div>
@@ -126,7 +1184,59 @@
           </div>
           <div class="card-content">
             <div class="pipeline-stages" id="pipeline-stages">
-              <!-- Populated by JavaScript -->
+              <div class="pipeline-stage stage-sourcing">
+                <div class="stage-icon">
+                  <i class="fas fa-search"></i>
+                </div>
+                <h4>Sourcing</h4>
+                <div class="count">0</div>
+                <div class="label">orders</div>
+              </div>
+
+              <div class="pipeline-stage stage-cutting">
+                <div class="stage-icon">
+                  <i class="fas fa-cut"></i>
+                </div>
+                <h4>Cutting</h4>
+                <div class="count">0</div>
+                <div class="label">orders</div>
+              </div>
+
+              <div class="pipeline-stage stage-stitching">
+                <div class="stage-icon">
+                  <i class="fas fa-sewing-machine"></i>
+                </div>
+                <h4>Stitching</h4>
+                <div class="count">0</div>
+                <div class="label">orders</div>
+              </div>
+
+              <div class="pipeline-stage stage-lasting">
+                <div class="stage-icon">
+                  <i class="fas fa-hammer"></i>
+                </div>
+                <h4>Lasting</h4>
+                <div class="count">0</div>
+                <div class="label">orders</div>
+              </div>
+
+              <div class="pipeline-stage stage-pasting">
+                <div class="stage-icon">
+                  <i class="fas fa-paste"></i>
+                </div>
+                <h4>Pasting</h4>
+                <div class="count">0</div>
+                <div class="label">orders</div>
+              </div>
+
+              <div class="pipeline-stage stage-finishing">
+                <div class="stage-icon">
+                  <i class="fas fa-star"></i>
+                </div>
+                <h4>Finishing</h4>
+                <div class="count">0</div>
+                <div class="label">orders</div>
+              </div>
             </div>
           </div>
         </div>
@@ -144,7 +1254,207 @@
           </button>
         </div>
 
-        <!-- Recent Orders -->
+        <!-- Order Type Selector -->
+        <div class="order-type-selector">
+          <div class="card">
+            <div class="card-header">
+              <h3>Order Management</h3>
+              <div class="order-type-tabs">
+                <button
+                  class="tab-btn active"
+                  data-type="purchase"
+                  onclick="switchOrderType('purchase')"
+                >
+                  <i class="fas fa-file-invoice"></i> Purchase Orders
+                </button>
+                <button
+                  class="tab-btn"
+                  data-type="sales"
+                  onclick="switchOrderType('sales')"
+                >
+                  <i class="fas fa-handshake"></i> Sales Orders
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Purchase Orders Section -->
+        <div id="purchase-orders-section" class="order-section active">
+          <div class="card">
+            <div class="card-header">
+              <h3>Purchase Orders</h3>
+              <div class="table-filters">
+                <select id="po-stage-filter">
+                  <option value="">All Stages</option>
+                  <option value="sourcing">Sourcing</option>
+                  <option value="cutting">Cutting</option>
+                  <option value="stitching">Stitching</option>
+                  <option value="lasting">Lasting</option>
+                  <option value="pasting">Pasting</option>
+                  <option value="finishing">Finishing</option>
+                </select>
+                <input type="text" id="search-po" placeholder="Search PO..." />
+                <button class="btn btn-primary">Update Stage</button>
+              </div>
+            </div>
+            <div class="card-content">
+              <div class="table-container">
+                <table id="purchase-orders-table">
+                  <thead>
+                    <tr>
+                      <th><input type="checkbox" id="select-all-po" /></th>
+                      <th>PO Number</th>
+                      <th>Order ID</th>
+                      <th>Style</th>
+                      <th>Current Stage</th>
+                      <th>Progress</th>
+                      <th>Assignee</th>
+                      <th>Due Date</th>
+                      <th>Related SOs</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="purchase-orders-tbody">
+                    <tr>
+                      <td><input type="checkbox" /></td>
+                      <td>PO-001</td>
+                      <td>ORD-2024-001</td>
+                      <td>Nike Air Max</td>
+                      <td><span class="badge stage-cutting">Cutting</span></td>
+                      <td>
+                        <div class="progress-bar">
+                          <div class="progress-fill" style="width: 40%"></div>
+                        </div>
+                        40%
+                      </td>
+                      <td>John Doe</td>
+                      <td>2024-02-15</td>
+                      <td>
+                        <button
+                          class="btn btn-sm btn-secondary"
+                          onclick="viewRelatedSOs('PO-001')"
+                        >
+                          <i class="fas fa-eye"></i> View (4)
+                        </button>
+                      </td>
+                      <td>
+                        <button class="action-btn" title="Edit">
+                          <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="action-btn" title="View Details">
+                          <i class="fas fa-eye"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sales Orders Section -->
+        <div id="sales-orders-section" class="order-section">
+          <div class="card">
+            <div class="card-header">
+              <h3>Sales Orders</h3>
+              <div class="table-filters">
+                <select id="so-stage-filter">
+                  <option value="">All Stages</option>
+                  <option value="sourcing">Sourcing</option>
+                  <option value="cutting">Cutting</option>
+                  <option value="stitching">Stitching</option>
+                  <option value="lasting">Lasting</option>
+                  <option value="pasting">Pasting</option>
+                  <option value="finishing">Finishing</option>
+                </select>
+                <select id="po-filter">
+                  <option value="">All Purchase Orders</option>
+                  <option value="PO-001">PO-001</option>
+                  <option value="PO-002">PO-002</option>
+                  <option value="PO-003">PO-003</option>
+                </select>
+                <input type="text" id="search-so" placeholder="Search SO..." />
+                <button class="btn btn-primary">Update Stage</button>
+              </div>
+            </div>
+            <div class="card-content">
+              <div class="table-container">
+                <table id="sales-orders-table">
+                  <thead>
+                    <tr>
+                      <th><input type="checkbox" id="select-all-so" /></th>
+                      <th>SO Number</th>
+                      <th>PO Number</th>
+                      <th>Customer</th>
+                      <th>Style</th>
+                      <th>Current Stage</th>
+                      <th>Progress</th>
+                      <th>Assignee</th>
+                      <th>Due Date</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="sales-orders-tbody">
+                    <tr>
+                      <td><input type="checkbox" /></td>
+                      <td>SO-001</td>
+                      <td>PO-001</td>
+                      <td>ABC Store</td>
+                      <td>Nike Air Max</td>
+                      <td>
+                        <span class="badge stage-stitching">Stitching</span>
+                      </td>
+                      <td>
+                        <div class="progress-bar">
+                          <div class="progress-fill" style="width: 60%"></div>
+                        </div>
+                        60%
+                      </td>
+                      <td>Jane Smith</td>
+                      <td>2024-02-10</td>
+                      <td>
+                        <button class="action-btn" title="Edit">
+                          <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="action-btn" title="View Details">
+                          <i class="fas fa-eye"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox" /></td>
+                      <td>SO-002</td>
+                      <td>PO-001</td>
+                      <td>XYZ Retail</td>
+                      <td>Nike Air Max</td>
+                      <td><span class="badge stage-lasting">Lasting</span></td>
+                      <td>
+                        <div class="progress-bar">
+                          <div class="progress-fill" style="width: 75%"></div>
+                        </div>
+                        75%
+                      </td>
+                      <td>Bob Johnson</td>
+                      <td>2024-02-12</td>
+                      <td>
+                        <button class="action-btn" title="Edit">
+                          <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="action-btn" title="View Details">
+                          <i class="fas fa-eye"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Orders (now at bottom) -->
         <div class="card">
           <div class="card-header">
             <h3>Recent Orders</h3>
@@ -152,49 +1462,6 @@
           <div class="card-content">
             <div class="recent-orders" id="recent-orders">
               <!-- Populated by JavaScript -->
-            </div>
-          </div>
-        </div>
-
-        <!-- Orders Table -->
-        <div class="card">
-          <div class="card-header">
-            <h3>All Production Orders</h3>
-            <div class="table-filters">
-              <select id="stage-filter">
-                <option value="">All Stages</option>
-                <option value="cutting">Cutting</option>
-                <option value="stitching">Stitching</option>
-                <option value="lasting">Lasting</option>
-                <option value="finishing">Finishing</option>
-                <option value="packing">Packing</option>
-              </select>
-              <input
-                type="text"
-                id="search-orders"
-                placeholder="Search orders..."
-              />
-            </div>
-          </div>
-          <div class="card-content">
-            <div class="table-container">
-              <table id="orders-table">
-                <thead>
-                  <tr>
-                    <th>Order ID</th>
-                    <th>Customer</th>
-                    <th>Style</th>
-                    <th>Quantity</th>
-                    <th>Stage</th>
-                    <th>Due Date</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody id="orders-tbody">
-                  <!-- Populated by JavaScript -->
-                </tbody>
-              </table>
             </div>
           </div>
         </div>
@@ -395,46 +1662,59 @@
           </div>
           <div class="card-content">
             <div class="production-pipeline" id="production-pipeline">
-              <!-- Populated by JavaScript -->
-            </div>
-          </div>
-        </div>
+              <div class="production-stage stage-sourcing">
+                <div class="stage-icon">
+                  <i class="fas fa-search"></i>
+                </div>
+                <h4>Sourcing</h4>
+                <div class="count">0</div>
+                <div class="label">orders</div>
+              </div>
 
-        <!-- Production Orders Table -->
-        <div class="card">
-          <div class="card-header">
-            <h3>Production Orders</h3>
-            <div class="table-filters">
-              <select id="production-stage-filter">
-                <option value="">All Stages</option>
-                <option value="cutting">Cutting</option>
-                <option value="stitching">Stitching</option>
-                <option value="lasting">Lasting</option>
-                <option value="finishing">Finishing</option>
-                <option value="packing">Packing</option>
-              </select>
-              <button class="btn btn-primary">Update Stage</button>
-            </div>
-          </div>
-          <div class="card-content">
-            <div class="table-container">
-              <table id="production-orders-table">
-                <thead>
-                  <tr>
-                    <th><input type="checkbox" id="select-all" /></th>
-                    <th>Order ID</th>
-                    <th>Style</th>
-                    <th>Current Stage</th>
-                    <th>Progress</th>
-                    <th>Assignee</th>
-                    <th>Due Date</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody id="production-orders-tbody">
-                  <!-- Populated by JavaScript -->
-                </tbody>
-              </table>
+              <div class="production-stage stage-cutting">
+                <div class="stage-icon">
+                  <i class="fas fa-cut"></i>
+                </div>
+                <h4>Cutting</h4>
+                <div class="count">0</div>
+                <div class="label">orders</div>
+              </div>
+
+              <div class="production-stage stage-stitching">
+                <div class="stage-icon">
+                  <i class="fas fa-sewing-machine"></i>
+                </div>
+                <h4>Stitching</h4>
+                <div class="count">0</div>
+                <div class="label">orders</div>
+              </div>
+
+              <div class="production-stage stage-lasting">
+                <div class="stage-icon">
+                  <i class="fas fa-hammer"></i>
+                </div>
+                <h4>Lasting</h4>
+                <div class="count">0</div>
+                <div class="label">orders</div>
+              </div>
+
+              <div class="production-stage stage-pasting">
+                <div class="stage-icon">
+                  <i class="fas fa-paste"></i>
+                </div>
+                <h4>Pasting</h4>
+                <div class="count">0</div>
+                <div class="label">orders</div>
+              </div>
+
+              <div class="production-stage stage-finishing">
+                <div class="stage-icon">
+                  <i class="fas fa-star"></i>
+                </div>
+                <h4>Finishing</h4>
+                <div class="count">0</div>
+                <div class="label">orders</div>
+              </div>
             </div>
           </div>
         </div>
@@ -548,6 +1828,145 @@
       </div>
     </div>
 
-    <script src="/static/script.js"></script>
+    <script>
+      // Navigation functionality
+      document.querySelectorAll(".nav-link").forEach((link) => {
+        link.addEventListener("click", function (e) {
+          e.preventDefault();
+          const page = this.dataset.page;
+
+          // Update active nav link
+          document
+            .querySelectorAll(".nav-link")
+            .forEach((l) => l.classList.remove("active"));
+          this.classList.add("active");
+
+          // Show corresponding page
+          document
+            .querySelectorAll(".page")
+            .forEach((p) => p.classList.remove("active"));
+          document.getElementById(page).classList.add("active");
+        });
+      });
+
+      // Order type switching functionality
+      function switchOrderType(type) {
+        // Update tab buttons
+        document
+          .querySelectorAll(".tab-btn")
+          .forEach((btn) => btn.classList.remove("active"));
+        document.querySelector(`[data-type="${type}"]`).classList.add("active");
+
+        // Show/hide order sections
+        document
+          .querySelectorAll(".order-section")
+          .forEach((section) => section.classList.remove("active"));
+        document
+          .getElementById(`${type}-orders-section`)
+          .classList.add("active");
+      }
+
+      // View related sales orders
+      function viewRelatedSOs(poNumber) {
+        // Switch to sales orders tab
+        switchOrderType("sales");
+
+        // Filter sales orders by PO number
+        const poFilter = document.getElementById("po-filter");
+        poFilter.value = poNumber;
+
+        console.log(`Viewing sales orders for ${poNumber}`);
+      }
+
+      // Modal functions
+      function openNewOrderModal() {
+        document.getElementById("new-order-modal").classList.add("active");
+      }
+
+      function closeNewOrderModal() {
+        document.getElementById("new-order-modal").classList.remove("active");
+      }
+
+      function openQcBot() {
+        window.open(
+          "https://open-aicode-uqjmrr2kqqusmuittt3pqq.streamlit.app/",
+          "_blank"
+        );
+      }
+
+      function openNewQcReportModal() {
+        console.log("Opening new QC report modal");
+      }
+
+      function handleDocumentAction(action) {
+        console.log("Document action:", action);
+      }
+
+      // File upload handling
+      document
+        .getElementById("po-file")
+        .addEventListener("change", function (e) {
+          const file = e.target.files[0];
+          const fileInfo = document.getElementById("file-info");
+
+          if (file) {
+            fileInfo.innerHTML = `
+            <i class="fas fa-file"></i>
+            <span>${file.name}</span>
+            <small>(${(file.size / 1024 / 1024).toFixed(2)} MB)</small>
+          `;
+            fileInfo.style.display = "block";
+          }
+        });
+
+      // Form submission
+      document
+        .getElementById("new-order-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          console.log("Form submitted");
+          closeNewOrderModal();
+        });
+
+      // Initialize sample data
+      function initializeSampleData() {
+        // Update KPI cards with sample data
+        document.getElementById("active-orders").textContent = "24";
+        document.getElementById("completed-orders").textContent = "156";
+        document.getElementById("pending-qc").textContent = "8";
+        document.getElementById("monthly-revenue").textContent = "12";
+
+        // Update QC summary
+        document.getElementById("qc-passed").textContent = "142";
+        document.getElementById("qc-pending").textContent = "8";
+        document.getElementById("qc-failed").textContent = "6";
+
+        // Update pipeline stage counts
+        updatePipelineStages();
+      }
+
+      function updatePipelineStages() {
+        const stages = {
+          sourcing: 5,
+          cutting: 8,
+          stitching: 12,
+          lasting: 6,
+          pasting: 4,
+          finishing: 3,
+        };
+
+        Object.keys(stages).forEach((stage) => {
+          const elements = document.querySelectorAll(`.stage-${stage} .count`);
+          elements.forEach((el) => {
+            el.textContent = stages[stage];
+          });
+        });
+      }
+
+      // Initialize the application
+      document.addEventListener("DOMContentLoaded", function () {
+        initializeSampleData();
+      });
+    </script>
   </body>
 </html>
