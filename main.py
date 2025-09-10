@@ -166,7 +166,7 @@ app.add_middleware(
 )
 
 # Mount static files
-app.mount("/static", StaticFiles(directory="Static"), name="static")
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # Dependency to get DB session
 def get_db():
