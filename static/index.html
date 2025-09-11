@@ -1,4 +1,1286 @@
-<!DOCTYPE html>
+</style>
+  </head>
+  <body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <div class="app-logo">
+          <i class="fas fa-industry"></i>
+          <h1>FootwearERP</h1>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <ul>
+          <li>
+            <a href="#dashboard" class="nav-link active" data-page="dashboard">
+              <i class="fas fa-chart-bar"></i> Dashboard
+            </a>
+          </li>
+          <li>
+            <a href="#orders" class="nav-link" data-page="orders">
+              <i class="fas fa-shopping-cart"></i> Orders
+            </a>
+          </li>
+          <li>
+            <a href="#requirements" class="nav-link" data-page="requirements">
+              <i class="fas fa-comments"></i> Customer Requirements
+            </a>
+          </li>
+          <li>
+            <a href="#documents" class="nav-link" data-page="documents">
+              <i class="fas fa-folder-open"></i> Documents
+            </a>
+          </li>
+          <li>
+            <a href="#quality" class="nav-link" data-page="quality">
+              <i class="fas fa-clipboard-check"></i> Quality Control
+            </a>
+          </li>
+          <li>
+            <a href="#production" class="nav-link" data-page="production">
+              <i class="fas fa-cogs"></i> Production
+            </a>
+          </li>
+        </ul>
+
+        <!-- External Tools -->
+        <div class="external-tools">
+          <h3>External Tools</h3>
+          <ul>
+            <li>
+              <a
+                href="https://open-aicode-uqjmrr2kqqusmuittt3pqq.streamlit.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <i class="fas fa-robot"></i> QC AI Bot
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Dashboard Page -->
+      <div id="dashboard" class="page active">
+        <div class="page-header">
+          <h2>Dashboard Overview</h2>
+          <p>Manufacturing performance and key metrics</p>
+        </div>
+
+        <!-- KPI Cards -->
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-icon blue">
+              <i class="fas fa-shopping-cart"></i>
+            </div>
+            <div class="kpi-content">
+              <h3 id="active-orders">0</h3>
+              <p>Active Orders</p>
+            </div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-icon green">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="kpi-content">
+              <h3 id="completed-orders">0</h3>
+              <p>Completed Orders</p>
+            </div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-icon yellow">
+              <i class="fas fa-clock"></i>
+            </div>
+            <div class="kpi-content">
+              <h3 id="pending-qc">0</h3>
+              <p>Pending QC</p>
+            </div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-icon purple">
+              <i class="fas fa-times-circle"></i>
+            </div>
+            <div class="kpi-content">
+              <h3 id="monthly-revenue"></h3>
+              <p>Rejected Orders</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Production Pipeline -->
+        <div class="card">
+          <div class="card-header">
+            <h3>Production Pipeline</h3>
+          </div>
+          <div class="card-content">
+            <div class="pipeline-stages" id="pipeline-stages">
+              <div class="pipeline-stage stage-sourcing">
+                <div class="stage-icon">
+                  <i class="fas fa-search"></i>
+                </div>
+                <h4>Sourcing</h4>
+                <div class="count">0</div>
+                <div class="label">orders</div>
+              </div>
+
+              <div class="pipeline-stage stage-cutting">
+                <div class="stage-icon">
+                  <i class="fas fa-cut"></i>
+                </div>
+                <h4>Cutting</h4>
+                <div class="count">0</div>
+                <div class="label">orders</div>
+              </div>
+
+              <div class="pipeline-stage stage-stitching">
+                <div class="stage-icon">
+                  <i class="fas fa-sewing-machine"></i>
+                </div>
+                <h4>Stitching</h4>
+                <div class="count">0</div>
+                <div class="label">orders</div>
+              </div>
+
+              <div class="pipeline-stage stage-lasting">
+                <div class="stage-icon">
+                  <i class="fas fa-hammer"></i>
+                </div>
+                <h4>Lasting</h4>
+                <div class="count">0</div>
+                <div class="label">orders</div>
+              </div>
+
+              <div class="pipeline-stage stage-pasting">
+                <div class="stage-icon">
+                  <i class="fas fa-paste"></i>
+                </div>
+                <h4>Pasting</h4>
+                <div class="count">0</div>
+                <div class="label">orders</div>
+              </div>
+
+              <div class="pipeline-stage stage-finishing">
+                <div class="stage-icon">
+                  <i class="fas fa-star"></i>
+                </div>
+                <h4>Finishing</h4>
+                <div class="count">0</div>
+                <div class="label">orders</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Orders Page -->
+      <div id="orders" class="page">
+        <div class="page-header">
+          <div>
+            <h2>Production Orders</h2>
+            <p>Manage and track all footwear production orders</p>
+          </div>
+          <button class="btn btn-primary" onclick="openNewOrderModal()">
+            <i class="fas fa-plus"></i> New Order
+          </button>
+        </div>
+
+        <!-- Order Type Selector -->
+        <div class="order-type-selector">
+          <div class="card">
+            <div class="card-header">
+              <h3>Order Management</h3>
+              <div class="order-type-tabs">
+                <button
+                  class="tab-btn active"
+                  data-type="purchase"
+                  onclick="switchOrderType('purchase')"
+                >
+                  <i class="fas fa-file-invoice"></i> Purchase Orders
+                </button>
+                <button
+                  class="tab-btn"
+                  data-type="sales"
+                  onclick="switchOrderType('sales')"
+                >
+                  <i class="fas fa-handshake"></i> Sales Orders
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Purchase Orders Section -->
+        <div id="purchase-orders-section" class="order-section active">
+          <div class="card">
+            <div class="card-header">
+              <h3>Purchase Orders</h3>
+              <div class="table-filters">
+                <select id="po-stage-filter">
+                  <option value="">All Stages</option>
+                  <option value="sourcing">Sourcing</option>
+                  <option value="cutting">Cutting</option>
+                  <option value="stitching">Stitching</option>
+                  <option value="lasting">Lasting</option>
+                  <option value="pasting">Pasting</option>
+                  <option value="finishing">Finishing</option>
+                </select>
+                <input type="text" id="search-po" placeholder="Search PO..." />
+                <button class="btn btn-primary">Update Stage</button>
+              </div>
+            </div>
+            <div class="card-content">
+              <div class="table-container">
+                <table id="purchase-orders-table">
+                  <thead>
+                    <tr>
+                      <th><input type="checkbox" id="select-all-po" /></th>
+                      <th>PO Number</th>
+                      <th>Order ID</th>
+                      <th>Style</th>
+                      <th>Progress</th>
+                      <th>Assignee</th>
+                      <th>Due Date</th>
+                      <th>Related SOs</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="purchase-orders-tbody">
+                    <tr>
+                      <td><input type="checkbox" /></td>
+                      <td>PO-001</td>
+                      <td>ORD-2024-001</td>
+                      <td>Nike Air Max</td>
+                      <td>
+                        <div class="progress-bar">
+                          <div class="progress-fill" style="width: 40%"></div>
+                        </div>
+                        40%
+                      </td>
+                      <td>John Doe</td>
+                      <td>2024-02-15</td>
+                      <td>
+                        <button
+                          class="btn btn-sm btn-secondary"
+                          onclick="viewRelatedSOs('PO-001')"
+                        >
+                          <i class="fas fa-eye"></i> View (4)
+                        </button>
+                      </td>
+                      <td>
+                        <button class="action-btn" title="Edit">
+                          <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="action-btn" title="View Details">
+                          <i class="fas fa-eye"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sales Orders Section -->
+        <div id="sales-orders-section" class="order-section">
+          <div class="card">
+            <div class="card-header">
+              <h3>Sales Orders</h3>
+              <div class="table-filters">
+                <select id="so-stage-filter">
+                  <option value="">All Stages</option>
+                  <option value="sourcing">Sourcing</option>
+                  <option value="cutting">Cutting</option>
+                  <option value="stitching">Stitching</option>
+                  <option value="lasting">Lasting</option>
+                  <option value="pasting">Pasting</option>
+                  <option value="finishing">Finishing</option>
+                </select>
+                <select id="po-filter">
+                  <option value="">All Purchase Orders</option>
+                  <option value="PO-001">PO-001</option>
+                  <option value="PO-002">PO-002</option>
+                  <option value="PO-003">PO-003</option>
+                </select>
+                <input type="text" id="search-so" placeholder="Search SO..." />
+                <button class="btn btn-primary">Update Stage</button>
+              </div>
+            </div>
+            <div class="card-content">
+              <div class="table-container">
+                <table id="sales-orders-table">
+                  <thead>
+                    <tr>
+                      <th><input type="checkbox" id="select-all-so" /></th>
+                      <th>SO Number</th>
+                      <th>PO Number</th>
+                      <th>Customer</th>
+                      <th>Style</th>
+                      <th>Progress</th>
+                      <th>Assignee</th>
+                      <th>Due Date</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="sales-orders-tbody">
+                    <tr>
+                      <td><input type="checkbox" /></td>
+                      <td>SO-001</td>
+                      <td>PO-001</td>
+                      <td>ABC Store</td>
+                      <td>Nike Air Max</td>
+                      <td>
+                        <div class="progress-bar">
+                          <div class="progress-fill" style="width: 60%"></div>
+                        </div>
+                        60%
+                      </td>
+                      <td>Jane Smith</td>
+                      <td>2024-02-10</td>
+                      <td>
+                        <button class="action-btn" title="Edit">
+                          <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="action-btn" title="View Details">
+                          <i class="fas fa-eye"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox" /></td>
+                      <td>SO-002</td>
+                      <td>PO-001</td>
+                      <td>XYZ Retail</td>
+                      <td>Nike Air Max</td>
+                      <td>
+                        <div class="progress-bar">
+                          <div class="progress-fill" style="width: 75%"></div>
+                        </div>
+                        75%
+                      </td>
+                      <td>Bob Johnson</td>
+                      <td>2024-02-12</td>
+                      <td>
+                        <button class="action-btn" title="Edit">
+                          <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="action-btn" title="View Details">
+                          <i class="fas fa-eye"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Orders -->
+        <div class="card">
+          <div class="card-header">
+            <h3>Recent Orders</h3>
+          </div>
+          <div class="card-content">
+            <div class="recent-orders" id="recent-orders">
+              <!-- Populated by JavaScript -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Customer Requirements Page -->
+      <div id="requirements" class="page">
+        <div class="page-header">
+          <div>
+            <h2>Customer Requirements</h2>
+            <p>Manage customer feedback and requirements for footwear styles</p>
+          </div>
+          <button class="btn btn-primary" onclick="openNewRequirementModal()">
+            <i class="fas fa-plus"></i> Add Requirement
+          </button>
+        </div>
+
+        <!-- Requirements Filters -->
+        <div class="requirements-filter">
+          <div class="table-filters">
+            <select id="requirement-style-filter">
+              <option value="">All Styles</option>
+              <option value="nike-air-max">Nike Air Max</option>
+              <option value="adidas-ultraboost">Adidas Ultraboost</option>
+              <option value="puma-suede">Puma Suede</option>
+            </select>
+            <select id="requirement-priority-filter">
+              <option value="">All Priorities</option>
+              <option value="urgent">Urgent</option>
+              <option value="high">High</option>
+              <option value="normal">Normal</option>
+            </select>
+            <input type="text" id="search-requirements" placeholder="Search requirements..." />
+          </div>
+        </div>
+
+        <!-- Kanban Board -->
+        <div class="kanban-board">
+          <!-- Pending Review Column -->
+          <div class="kanban-column pending">
+            <div class="kanban-header">
+              <h3><i class="fas fa-clock"></i> Pending Review</h3>
+              <span class="kanban-count">3</span>
+            </div>
+            <div class="kanban-content">
+              <div class="requirement-card" onclick="openRequirementDetails('req-001')">
+                <div class="card-image">
+                  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='80'%3E%3Crect width='100' height='80' fill='%23333'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%23999'%3ENike Air Max%3C/text%3E%3C/svg%3E" alt="Nike Air Max" />
+                </div>
+                <div class="card-title">Nike Air Max Style</div>
+                <div class="card-meta">
+                  <span class="order-id">ORD-2024-001</span>
+                  <span class="priority-badge priority-high">High</span>
+                </div>
+                <div class="card-description">
+                  Customer wants sole color changed from white to black. Heel support needs improvement for better comfort.
+                </div>
+                <div class="card-footer">
+                  <span class="assignee">John Merchandiser</span>
+                  <span class="due-date">Due: Feb 20</span>
+                </div>
+              </div>
+
+              <div class="requirement-card" onclick="openRequirementDetails('req-002')">
+                <div class="card-image">
+                  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='80'%3E%3Crect width='100' height='80' fill='%23333'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%23999'%3EAdidas Ultra%3C/text%3E%3C/svg%3E" alt="Adidas Ultraboost" />
+                </div>
+                <div class="card-title">Adidas Ultraboost</div>
+                <div class="card-meta">
+                  <span class="order-id">ORD-2024-002</span>
+                  <span class="priority-badge priority-normal">Normal</span>
+                </div>
+                <div class="card-description">
+                  Sizing adjustment needed for European market. Upper material texture concerns.
+                </div>
+                <div class="card-footer">
+                  <span class="assignee">Sarah Wilson</span>
+                  <span class="due-date">Due: Feb 25</span>
+                </div>
+              </div>
+
+              <div class="requirement-card" onclick="openRequirementDetails('req-003')">
+                <div class="card-image">
+                  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='80'%3E%3Crect width='100' height='80' fill='%23333'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%23999'%3EPuma Suede%3C/text%3E%3C/svg%3E" alt="Puma Suede" />
+                </div>
+                <div class="card-title">Puma Suede Classic</div>
+                <div class="card-meta">
+                  <span class="order-id">ORD-2024-003</span>
+                  <span class="priority-badge priority-urgent">Urgent</span>
+                </div>
+                <div class="card-description">
+                  Logo placement issue. Customer wants brand logo moved 2cm lower on the side panel.
+                </div>
+                <div class="card-footer">
+                  <span class="assignee">Mike Chen</span>
+                  <span class="due-date">Due: Feb 18</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- In Progress Column -->
+          <div class="kanban-column in-progress">
+            <div class="kanban-header">
+              <h3><i class="fas fa-spinner"></i> In Progress</h3>
+              <span class="kanban-count">2</span>
+            </div>
+            <div class="kanban-content">
+              <div class="requirement-card" onclick="openRequirementDetails('req-004')">
+                <div class="card-image">
+                  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='80'%3E%3Crect width='100' height='80' fill='%23333'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%23999'%3EConverse%3C/text%3E%3C/svg%3E" alt="Converse Chuck Taylor" />
+                </div>
+                <div class="card-title">Converse Chuck Taylor</div>
+                <div class="card-meta">
+                  <span class="order-id">ORD-2024-004</span>
+                  <span class="priority-badge priority-normal">Normal</span>
+                </div>
+                <div class="card-description">
+                  Canvas material quality improvement requested. Customer feedback on durability.
+                </div>
+                <div class="card-footer">
+                  <span class="assignee">Lisa Park</span>
+                  <span class="due-date">Due: Feb 28</span>
+                </div>
+              </div>
+
+              <div class="requirement-card" onclick="openRequirementDetails('req-005')">
+                <div class="card-image">
+                  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='80'%3E%3Crect width='100' height='80' fill='%23333'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%23999'%3EVans Old Skool%3C/text%3E%3C/svg%3E" alt="Vans Old Skool" />
+                </div>
+                <div class="card-title">Vans Old Skool</div>
+                <div class="card-meta">
+                  <span class="order-id">ORD-2024-005</span>
+                  <span class="priority-badge priority-high">High</span>
+                </div>
+                <div class="card-description">
+                  Stripe design modification required. Customer prefers thicker side stripes for better visibility.
+                </div>
+                <div class="card-footer">
+                  <span class="assignee">David Lee</span>
+                  <span class="due-date">Due: Feb 22</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Resolved Column -->
+          <div class="kanban-column resolved">
+            <div class="kanban-header">
+              <h3><i class="fas fa-check"></i> Resolved</h3>
+              <span class="kanban-count">4</span>
+            </div>
+            <div class="kanban-content">
+              <div class="requirement-card" onclick="openRequirementDetails('req-006')">
+                <div class="card-image">
+                  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='80'%3E%3Crect width='100' height='80' fill='%23333'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%23999'%3ENew Balance%3C/text%3E%3C/svg%3E" alt="New Balance 990" />
+                </div>
+                <div class="card-title">New Balance 990</div>
+                <div class="card-meta">
+                  <span class="order-id">ORD-2024-006</span>
+                  <span class="priority-badge priority-normal">Normal</span>
+                </div>
+                <div class="card-description">
+                  Mesh upper ventilation improved. Customer satisfied with breathability enhancement.
+                </div>
+                <div class="card-footer">
+                  <span class="assignee">Emily Chen</span>
+                  <span class="due-date">Completed: Feb 10</span>
+                </div>
+              </div>
+
+              <div class="requirement-card" onclick="openRequirementDetails('req-007')">
+                <div class="card-image">
+                  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='80'%3E%3Crect width='100' height='80' fill='%23333'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%23999'%3EReebok Classic%3C/text%3E%3C/svg%3E" alt="Reebok Classic" />
+                </div>
+                <div class="card-title">Reebok Classic</div>
+                <div class="card-meta">
+                  <span class="order-id">ORD-2024-007</span>
+                  <span class="priority-badge priority-high">High</span>
+                </div>
+                <div class="card-description">
+                  Insole padding thickness adjusted. Customer feedback incorporated successfully.
+                </div>
+                <div class="card-footer">
+                  <span class="assignee">Mark Taylor</span>
+                  <span class="due-date">Completed: Feb 12</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Approved for Production Column -->
+          <div class="kanban-column approved">
+            <div class="kanban-header">
+              <h3><i class="fas fa-thumbs-up"></i> Approved for Production</h3>
+              <span class="kanban-count">2</span>
+            </div>
+            <div class="kanban-content">
+              <div class="requirement-card" onclick="openRequirementDetails('req-008')">
+                <div class="card-image">
+                  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='80'%3E%3Crect width='100' height='80' fill='%23333'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%23999'%3EASICS Gel%3C/text%3E%3C/svg%3E" alt="ASICS Gel Kayano" />
+                </div>
+                <div class="card-title">ASICS Gel Kayano</div>
+                <div class="card-meta">
+                  <span class="order-id">ORD-2024-008</span>
+                  <span class="priority-badge priority-normal">Normal</span>
+                </div>
+                <div class="card-description">
+                  All customer modifications approved. Ready for production start with updated specifications.
+                </div>
+                <div class="card-footer">
+                  <span class="assignee">Rachel Kim</span>
+                  <span class="due-date">Approved: Feb 14</span>
+                </div>
+              </div>
+
+              <div class="requirement-card" onclick="openRequirementDetails('req-009')">
+                <div class="card-image">
+                  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='80'%3E%3Crect width='100' height='80' fill='%23333'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%23999'%3EJordan 1%3C/text%3E%3C/svg%3E" alt="Air Jordan 1" />
+                </div>
+                <div class="card-title">Air Jordan 1</div>
+                <div class="card-meta">
+                  <span class="order-id">ORD-2024-009</span>
+                  <span class="priority-badge priority-high">High</span>
+                </div>
+                <div class="card-description">
+                  Color scheme finalized and customer approved. Production team notified for immediate start.
+                </div>
+                <div class="card-footer">
+                  <span class="assignee">Alex Rodriguez</span>
+                  <span class="due-date">Approved: Feb 16</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Documents Page -->
+      <div id="documents" class="page">
+        <div class="page-header">
+          <h2>Document Management</h2>
+          <p>Upload, organize, and access all order-related documents</p>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions-grid">
+          <div
+            class="quick-action-card"
+            onclick="handleDocumentAction('upload-po')"
+          >
+            <div class="action-icon blue">
+              <i class="fas fa-file-text"></i>
+            </div>
+            <h3>Upload PO</h3>
+            <p>Upload purchase order documents</p>
+          </div>
+
+          <div
+            class="quick-action-card"
+            onclick="handleDocumentAction('bom-files')"
+          >
+            <div class="action-icon green">
+              <i class="fas fa-file-spreadsheet"></i>
+            </div>
+            <h3>BOM Files</h3>
+            <p>Manage bill of materials</p>
+          </div>
+
+          <div
+            class="quick-action-card"
+            onclick="handleDocumentAction('qc-reports')"
+          >
+            <div class="action-icon purple">
+              <i class="fas fa-clipboard-check"></i>
+            </div>
+            <h3>QC Reports</h3>
+            <p>Quality control documentation</p>
+          </div>
+
+          <div
+            class="quick-action-card"
+            onclick="handleDocumentAction('dispatch-docs')"
+          >
+            <div class="action-icon orange">
+              <i class="fas fa-truck"></i>
+            </div>
+            <h3>Dispatch Docs</h3>
+            <p>Shipping and dispatch documents</p>
+          </div>
+        </div>
+
+        <!-- Documents Table -->
+        <div class="card">
+          <div class="card-header">
+            <h3>Document Repository</h3>
+            <div class="table-filters">
+              <select id="document-type-filter">
+                <option value="">All Documents</option>
+                <option value="purchase_order">Purchase Orders</option>
+                <option value="bom">BOM Files</option>
+                <option value="qc_report">QC Reports</option>
+                <option value="dispatch_document">Dispatch Documents</option>
+              </select>
+              <input
+                type="text"
+                id="search-documents"
+                placeholder="Search documents..."
+              />
+            </div>
+          </div>
+          <div class="card-content">
+            <div class="table-container">
+              <table id="documents-table">
+                <thead>
+                  <tr>
+                    <th>Document</th>
+                    <th>Order ID</th>
+                    <th>Type</th>
+                    <th>Uploaded By</th>
+                    <th>Date</th>
+                    <th>Size</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="documents-tbody">
+                  <!-- Populated by JavaScript -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quality Control Page -->
+      <div id="quality" class="page">
+        <div class="page-header">
+          <div>
+            <h2>Quality Control</h2>
+            <p>Manage QC inspections and reports for all footwear orders</p>
+          </div>
+          <button class="btn btn-accent" onclick="openQcBot()">
+            <i class="fas fa-robot"></i> QC AI Bot
+            <i class="fas fa-external-link-alt"></i>
+          </button>
+        </div>
+
+        <!-- QC Summary Cards -->
+        <div class="qc-summary-grid">
+          <div class="qc-summary-card green">
+            <div class="qc-icon">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="qc-content">
+              <h3 id="qc-passed">0</h3>
+              <p>Orders Passed</p>
+            </div>
+          </div>
+
+          <div class="qc-summary-card yellow">
+            <div class="qc-icon">
+              <i class="fas fa-clock"></i>
+            </div>
+            <div class="qc-content">
+              <h3 id="qc-pending">0</h3>
+              <p>Pending Review</p>
+            </div>
+          </div>
+
+          <div class="qc-summary-card red">
+            <div class="qc-icon">
+              <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <div class="qc-content">
+              <h3 id="qc-failed">0</h3>
+              <p>Failed QC</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- QC Reports Table -->
+        <div class="card">
+          <div class="card-header">
+            <h3>QC Reports by Style</h3>
+            <div class="table-filters">
+              <select id="qc-status-filter">
+                <option value="">All Statuses</option>
+                <option value="passed">Passed</option>
+                <option value="failed">Failed</option>
+                <option value="pending">Pending</option>
+              </select>
+              <button class="btn btn-primary" onclick="openNewQcReportModal()">
+                New QC Report
+              </button>
+            </div>
+          </div>
+          <div class="card-content">
+            <div class="table-container">
+              <table id="qc-reports-table">
+                <thead>
+                  <tr>
+                    <th>Order ID</th>
+                    <th>Style</th>
+                    <th>Inspector</th>
+                    <th>Inspection Date</th>
+                    <th>Defects Found</th>
+                    <th>QC Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="qc-reports-tbody">
+                  <!-- Populated by JavaScript -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Production Page -->
+      <div id="production" class="page">
+        <div class="page-header">
+          <h2>Production Tracking</h2>
+          <p>Monitor production stages and update order progress</p>
+        </div>
+
+        <!-- Production Pipeline Overview -->
+        <div class="card">
+          <div class="card-header">
+            <h3>Production Pipeline</h3>
+          </div>
+          <div class="card-content">
+            <div class="production-pipeline" id="production-pipeline">
+              <div class="production-stage stage-sourcing">
+                <div class="stage-icon">
+                  <i class="fas fa-search"></i>
+                </div>
+                <h4>Sourcing</h4>
+                <div class="count">0</div>
+                <div class="label">orders</div>
+              </div>
+
+              <div class="production-stage stage-cutting">
+                <div class="stage-icon">
+                  <i class="fas fa-cut"></i>
+                </div>
+                <h4>Cutting</h4>
+                <div class="count">0</div>
+                <div class="label">orders</div>
+              </div>
+
+              <div class="production-stage stage-stitching">
+                <div class="stage-icon">
+                  <i class="fas fa-sewing-machine"></i>
+                </div>
+                <h4>Stitching</h4>
+                <div class="count">0</div>
+                <div class="label">orders</div>
+              </div>
+
+              <div class="production-stage stage-lasting">
+                <div class="stage-icon">
+                  <i class="fas fa-hammer"></i>
+                </div>
+                <h4>Lasting</h4>
+                <div class="count">0</div>
+                <div class="label">orders</div>
+              </div>
+
+              <div class="production-stage stage-pasting">
+                <div class="stage-icon">
+                  <i class="fas fa-paste"></i>
+                </div>
+                <h4>Pasting</h4>
+                <div class="count">0</div>
+                <div class="label">orders</div>
+              </div>
+
+              <div class="production-stage stage-finishing">
+                <div class="stage-icon">
+                  <i class="fas fa-star"></i>
+                </div>
+                <h4>Finishing</h4>
+                <div class="count">0</div>
+                <div class="label">orders</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- New Order Modal -->
+    <div id="new-order-modal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Create New Order</h3>
+          <button class="modal-close" onclick="closeNewOrderModal()">
+            &times;
+          </button>
+        </div>
+        <form id="new-order-form" enctype="multipart/form-data">
+          <div class="form-section">
+            <label>Upload Purchase Order</label>
+            <div class="file-upload">
+              <div
+                class="upload-area"
+                onclick="document.getElementById('po-file').click()"
+              >
+                <i class="fas fa-cloud-upload-alt"></i>
+                <p>Drop PO file here or click to browse</p>
+                <small>PDF, Excel, or Word documents up to 10MB</small>
+              </div>
+              <input
+                type="file"
+                id="po-file"
+                name="po_file"
+                accept=".pdf,.xlsx,.xls,.doc,.docx"
+                style="display: none"
+              />
+              <div class="file-info" id="file-info" style="display: none"></div>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="customer-id">Customer ID *</label>
+              <input type="text" id="customer-id" name="customer_id" required />
+            </div>
+            <div class="form-group">
+              <label for="customer-name">Customer Name *</label>
+              <input
+                type="text"
+                id="customer-name"
+                name="customer_name"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="style">Style *</label>
+              <input type="text" id="style" name="style" required />
+            </div>
+            <div class="form-group">
+              <label for="quantity">Quantity *</label>
+              <input
+                type="number"
+                id="quantity"
+                name="quantity"
+                min="1"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="order-amount">Order Amount</label>
+              <input
+                type="text"
+                id="order-amount"
+                name="order_amount"
+                placeholder="$0.00"
+              />
+            </div>
+            <div class="form-group">
+              <label for="due-date">Due Date</label>
+              <input type="date" id="due-date" name="due_date" />
+            </div>
+            <div class="form-group">
+              <label for="priority">Priority</label>
+              <select id="priority" name="priority">
+                <option value="normal">Normal</option>
+                <option value="high">High</option>
+                <option value="urgent">Urgent</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="customer-requirements">Customer Requirements</label>
+            <textarea
+              id="customer-requirements"
+              name="customer_requirements"
+              rows="3"
+              placeholder="Special instructions or requirements..."
+            ></textarea>
+          </div>
+
+          <div class="modal-actions">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              onclick="closeNewOrderModal()"
+            >
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-primary">Create Order</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- New Requirement Modal -->
+    <div id="new-requirement-modal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Add Customer Requirement</h3>
+          <button class="modal-close" onclick="closeNewRequirementModal()">
+            &times;
+          </button>
+        </div>
+        <form id="new-requirement-form" enctype="multipart/form-data">
+          <div class="form-section">
+            <label>Upload Footwear Image</label>
+            <div class="file-upload">
+              <div
+                class="upload-area"
+                onclick="document.getElementById('footwear-image').click()"
+              >
+                <i class="fas fa-image"></i>
+                <p>Drop footwear image here or click to browse</p>
+                <small>JPG, PNG, or GIF images up to 5MB</small>
+              </div>
+              <input
+                type="file"
+                id="footwear-image"
+                name="footwear_image"
+                accept="image/*"
+                style="display: none"
+              />
+              <div class="file-info" id="image-info" style="display: none"></div>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="order-id">Order ID *</label>
+              <input type="text" id="order-id" name="order_id" required />
+            </div>
+            <div class="form-group">
+              <label for="style-name">Style Name *</label>
+              <input type="text" id="style-name" name="style_name" required />
+            </div>
+            <div class="form-group">
+              <label for="customer-name">Customer Name *</label>
+              <input type="text" id="customer-name" name="customer_name" required />
+            </div>
+            <div class="form-group">
+              <label for="assignee">Assignee *</label>
+              <input type="text" id="assignee" name="assignee" required />
+            </div>
+            <div class="form-group">
+              <label for="priority">Priority</label>
+              <select id="priority" name="priority">
+                <option value="normal">Normal</option>
+                <option value="high">High</option>
+                <option value="urgent">Urgent</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="due-date">Due Date</label>
+              <input type="date" id="due-date" name="due_date" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="requirement-description">Customer Requirement Description *</label>
+            <textarea
+              id="requirement-description"
+              name="requirement_description"
+              rows="4"
+              placeholder="Describe the customer's feedback and requirements..."
+              required
+            ></textarea>
+          </div>
+
+          <div class="modal-actions">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              onclick="closeNewRequirementModal()"
+            >
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-primary">Add Requirement</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Requirement Details Modal -->
+    <div id="requirement-details-modal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Requirement Details</h3>
+          <button class="modal-close" onclick="closeRequirementDetailsModal()">
+            &times;
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Content will be populated by JavaScript -->
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Navigation functionality
+      document.querySelectorAll(".nav-link").forEach((link) => {
+        link.addEventListener("click", function (e) {
+          e.preventDefault();
+          const page = this.dataset.page;
+
+          // Update active nav link
+          document
+            .querySelectorAll(".nav-link")
+            .forEach((l) => l.classList.remove("active"));
+          this.classList.add("active");
+
+          // Show corresponding page
+          document
+            .querySelectorAll(".page")
+            .forEach((p) => p.classList.remove("active"));
+          document.getElementById(page).classList.add("active");
+        });
+      });
+
+      // Order type switching functionality
+      function switchOrderType(type) {
+        // Update tab buttons
+        document
+          .querySelectorAll(".tab-btn")
+          .forEach((btn) => btn.classList.remove("active"));
+        document.querySelector(`[data-type="${type}"]`).classList.add("active");
+
+        // Show/hide order sections
+        document
+          .querySelectorAll(".order-section")
+          .forEach((section) => section.classList.remove("active"));
+        document
+          .getElementById(`${type}-orders-section`)
+          .classList.add("active");
+      }
+
+      // View related sales orders
+      function viewRelatedSOs(poNumber) {
+        // Switch to sales orders tab
+        switchOrderType("sales");
+
+        // Filter sales orders by PO number
+        const poFilter = document.getElementById("po-filter");
+        poFilter.value = poNumber;
+
+        console.log(`Viewing sales orders for ${poNumber}`);
+      }
+
+      // Modal functions
+      function openNewOrderModal() {
+        document.getElementById("new-order-modal").classList.add("active");
+      }
+
+      function closeNewOrderModal() {
+        document.getElementById("new-order-modal").classList.remove("active");
+      }
+
+      function openNewRequirementModal() {
+        document.getElementById("new-requirement-modal").classList.add("active");
+      }
+
+      function closeNewRequirementModal() {
+        document.getElementById("new-requirement-modal").classList.remove("active");
+      }
+
+      function openRequirementDetails(reqId) {
+        // Populate modal with requirement details
+        const modal = document.getElementById("requirement-details-modal");
+        // Add your logic here to load requirement details
+        modal.classList.add("active");
+        console.log("Opening requirement details for:", reqId);
+      }
+
+      function closeRequirementDetailsModal() {
+        document.getElementById("requirement-details-modal").classList.remove("active");
+      }
+
+      function openQcBot() {
+        window.open(
+          "https://open-aicode-uqjmrr2kqqusmuittt3pqq.streamlit.app/",
+          "_blank"
+        );
+      }
+
+      function openNewQcReportModal() {
+        console.log("Opening new QC report modal");
+      }
+
+      function handleDocumentAction(action) {
+        console.log("Document action:", action);
+      }
+
+      // File upload handling
+      document
+        .getElementById("po-file")
+        .addEventListener("change", function (e) {
+          const file = e.target.files[0];
+          const fileInfo = document.getElementById("file-info");
+
+          if (file) {
+            fileInfo.innerHTML = `
+            <i class="fas fa-file"></i>
+            <span>${file.name}</span>
+            <small>(${(file.size / 1024 / 1024).toFixed(2)} MB)</small>
+          `;
+            fileInfo.style.display = "block";
+          }
+        });
+
+      // Image upload handling for requirements
+      document
+        .getElementById("footwear-image")
+        .addEventListener("change", function (e) {
+          const file = e.target.files[0];
+          const imageInfo = document.getElementById("image-info");
+
+          if (file) {
+            imageInfo.innerHTML = `
+            <i class="fas fa-image"></i>
+            <span>${file.name}</span>
+            <small>(${(file.size / 1024 / 1024).toFixed(2)} MB)</small>
+          `;
+            imageInfo.style.display = "block";
+          }
+        });
+
+      // Form submissions
+      document
+        .getElementById("new-order-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          console.log("Order form submitted");
+          closeNewOrderModal();
+        });
+
+      document
+        .getElementById("new-requirement-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          console.log("Requirement form submitted");
+          closeNewRequirementModal();
+        });
+
+      // Initialize sample data
+      function initializeSampleData() {
+        // Update KPI cards with sample data
+        document.getElementById("active-orders").textContent = "24";
+        document.getElementById("completed-orders").textContent = "156";
+        document.getElementById("pending-qc").textContent = "8";
+        document.getElementById("monthly-revenue").textContent = "12";
+
+        // Update QC summary
+        document.getElementById("qc-passed").textContent = "142";
+        document.getElementById("qc-pending").textContent = "8";
+        document.getElementById("qc-failed").textContent = "6";
+
+        // Update pipeline stage counts
+        updatePipelineStages();
+      }
+
+      function updatePipelineStages() {
+        const stages = {
+          sourcing: 5,
+          cutting: 8,
+          stitching: 12,
+          lasting: 6,
+          pasting: 4,
+          finishing: 3,
+        };
+
+        Object.keys(stages).forEach((stage) => {
+          const elements = document.querySelectorAll(`.stage-${stage} .count`);
+          elements.forEach((el) => {
+            el.textContent = stages[stage];
+          });
+        });
+      }
+
+      // Initialize the application
+      document.addEventListener("DOMContentLoaded", function () {
+        initializeSampleData();
+      });
+    </script>
+  </body>
+</html><!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -460,6 +1742,206 @@ body {
   display: block;
 }
 
+/* Kanban Board Styles */
+.kanban-board {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 24px;
+  overflow-x: auto;
+  padding-bottom: 16px;
+}
+
+.kanban-column {
+  min-width: 320px;
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.kanban-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.kanban-header h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.kanban-count {
+  background-color: var(--muted);
+  color: var(--muted-foreground);
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.kanban-content {
+  padding: 16px;
+  min-height: 400px;
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.requirement-card {
+  background-color: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.requirement-card:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  transform: translateY(-2px);
+}
+
+.requirement-card:last-child {
+  margin-bottom: 0;
+}
+
+.card-image {
+  width: 100%;
+  height: 120px;
+  background-color: var(--muted);
+  border-radius: 6px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted-foreground);
+  font-size: 14px;
+  overflow: hidden;
+}
+
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--foreground);
+  margin-bottom: 8px;
+}
+
+.card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.order-id {
+  font-size: 12px;
+  color: var(--muted-foreground);
+  background-color: var(--muted);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.priority-badge {
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.priority-high {
+  background-color: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.priority-normal {
+  background-color: rgba(66, 133, 244, 0.2);
+  color: #4285f4;
+  border: 1px solid rgba(66, 133, 244, 0.3);
+}
+
+.priority-urgent {
+  background-color: rgba(249, 115, 22, 0.2);
+  color: #f97316;
+  border: 1px solid rgba(249, 115, 22, 0.3);
+}
+
+.card-description {
+  font-size: 14px;
+  color: var(--muted-foreground);
+  margin-bottom: 12px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+}
+
+.assignee {
+  color: var(--muted-foreground);
+}
+
+.due-date {
+  color: var(--accent);
+}
+
+.requirements-filter {
+  margin-bottom: 24px;
+}
+
+/* Column-specific colors */
+.kanban-column.pending .kanban-header {
+  background-color: rgba(234, 179, 8, 0.1);
+  border-bottom-color: rgba(234, 179, 8, 0.3);
+}
+
+.kanban-column.pending .kanban-header h3 {
+  color: #eab308;
+}
+
+.kanban-column.in-progress .kanban-header {
+  background-color: rgba(66, 133, 244, 0.1);
+  border-bottom-color: rgba(66, 133, 244, 0.3);
+}
+
+.kanban-column.in-progress .kanban-header h3 {
+  color: #4285f4;
+}
+
+.kanban-column.resolved .kanban-header {
+  background-color: rgba(34, 197, 94, 0.1);
+  border-bottom-color: rgba(34, 197, 94, 0.3);
+}
+
+.kanban-column.resolved .kanban-header h3 {
+  color: #22c55e;
+}
+
+.kanban-column.approved .kanban-header {
+  background-color: rgba(168, 85, 247, 0.1);
+  border-bottom-color: rgba(168, 85, 247, 0.3);
+}
+
+.kanban-column.approved .kanban-header h3 {
+  color: #a855f7;
+}
+
 /* Quick Actions Grid */
 .quick-actions-grid {
   display: grid;
@@ -854,1118 +2336,4 @@ tbody tr:hover {
   max-width: 600px;
   width: 90%;
   max-height: 90vh;
-  overflow-y: auto;
-}
-
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 24px;
-  border-bottom: 1px solid var(--border);
-}
-
-.modal-header h3 {
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--foreground);
-}
-
-.modal-close {
-  background: none;
-  border: none;
-  font-size: 24px;
-  color: var(--muted-foreground);
-  cursor: pointer;
-  padding: 0;
-  width: 24px;
-  height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.modal-close:hover {
-  color: var(--foreground);
-}
-
-/* Form Styles */
-form {
-  padding: 24px;
-}
-
-.form-section {
-  margin-bottom: 24px;
-}
-
-.form-section label {
-  display: block;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--foreground);
-  margin-bottom: 8px;
-}
-
-.form-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 16px;
-  margin-bottom: 24px;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-}
-
-.form-group label {
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--foreground);
-  margin-bottom: 6px;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-  padding: 10px 12px;
-  background-color: var(--input);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  color: var(--foreground);
-  font-size: 14px;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-  outline: none;
-  border-color: var(--primary);
-  box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.2);
-}
-
-/* File Upload */
-.file-upload {
-  margin-bottom: 16px;
-}
-
-.upload-area {
-  border: 2px dashed var(--border);
-  border-radius: var(--radius);
-  padding: 32px;
-  text-align: center;
-  background-color: rgba(255, 255, 255, 0.02);
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.upload-area:hover {
-  border-color: var(--primary);
-  background-color: rgba(66, 133, 244, 0.05);
-}
-
-.upload-area i {
-  font-size: 32px;
-  color: var(--muted-foreground);
-  margin-bottom: 12px;
-}
-
-.upload-area p {
-  color: var(--foreground);
-  margin-bottom: 8px;
-}
-
-.upload-area small {
-  color: var(--muted-foreground);
-  font-size: 12px;
-}
-
-.file-info {
-  margin-top: 12px;
-  padding: 8px 12px;
-  background-color: rgba(66, 133, 244, 0.1);
-  border: 1px solid rgba(66, 133, 244, 0.3);
-  border-radius: var(--radius);
-  color: var(--primary);
-  font-size: 14px;
-}
-
-.modal-actions {
-  display: flex;
-  gap: 12px;
-  justify-content: flex-end;
-  margin-top: 24px;
-  padding-top: 16px;
-  border-top: 1px solid var(--border);
-}
-
-/* Action Buttons */
-.action-btn {
-  background: none;
-  border: none;
-  padding: 8px;
-  color: var(--muted-foreground);
-  cursor: pointer;
-  border-radius: 4px;
-  transition: all 0.2s;
-}
-
-.action-btn:hover {
-  color: var(--foreground);
-  background-color: var(--muted);
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  body {
-    flex-direction: column;
-  }
-
-  .sidebar {
-    width: 100%;
-    height: auto;
-    order: 2;
-  }
-
-  .main-content {
-    order: 1;
-    height: calc(100vh - 200px);
-  }
-
-  .page-header {
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .kpi-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .quick-actions-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .qc-summary-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .form-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .table-filters {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .table-filters input {
-    width: 100%;
-  }
-
-  .order-type-tabs {
-    flex-direction: column;
-  }
-}
-    </style>
-  </head>
-  <body>
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <div class="sidebar-header">
-        <div class="app-logo">
-          <i class="fas fa-industry"></i>
-          <h1>FootwearERP</h1>
-        </div>
-      </div>
-
-      <nav class="sidebar-nav">
-        <ul>
-          <li>
-            <a href="#dashboard" class="nav-link active" data-page="dashboard">
-              <i class="fas fa-chart-bar"></i> Dashboard
-            </a>
-          </li>
-          <li>
-            <a href="#orders" class="nav-link" data-page="orders">
-              <i class="fas fa-shopping-cart"></i> Orders
-            </a>
-          </li>
-          <li>
-            <a href="#documents" class="nav-link" data-page="documents">
-              <i class="fas fa-folder-open"></i> Documents
-            </a>
-          </li>
-          <li>
-            <a href="#quality" class="nav-link" data-page="quality">
-              <i class="fas fa-clipboard-check"></i> Quality Control
-            </a>
-          </li>
-          <li>
-            <a href="#production" class="nav-link" data-page="production">
-              <i class="fas fa-cogs"></i> Production
-            </a>
-          </li>
-        </ul>
-
-        <!-- External Tools -->
-        <div class="external-tools">
-          <h3>External Tools</h3>
-          <ul>
-            <li>
-              <a
-                href="https://open-aicode-uqjmrr2kqqusmuittt3pqq.streamlit.app/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <i class="fas fa-robot"></i> QC AI Bot
-              </a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-    </div>
-
-    <!-- Main Content -->
-    <div class="main-content">
-      <!-- Dashboard Page -->
-      <div id="dashboard" class="page active">
-        <div class="page-header">
-          <h2>Dashboard Overview</h2>
-          <p>Manufacturing performance and key metrics</p>
-        </div>
-
-        <!-- KPI Cards -->
-        <div class="kpi-grid">
-          <div class="kpi-card">
-            <div class="kpi-icon blue">
-              <i class="fas fa-shopping-cart"></i>
-            </div>
-            <div class="kpi-content">
-              <h3 id="active-orders">0</h3>
-              <p>Active Orders</p>
-            </div>
-          </div>
-
-          <div class="kpi-card">
-            <div class="kpi-icon green">
-              <i class="fas fa-check-circle"></i>
-            </div>
-            <div class="kpi-content">
-              <h3 id="completed-orders">0</h3>
-              <p>Completed Orders</p>
-            </div>
-          </div>
-
-          <div class="kpi-card">
-            <div class="kpi-icon yellow">
-              <i class="fas fa-clock"></i>
-            </div>
-            <div class="kpi-content">
-              <h3 id="pending-qc">0</h3>
-              <p>Pending QC</p>
-            </div>
-          </div>
-
-          <div class="kpi-card">
-            <div class="kpi-icon purple">
-              <i class="fas fa-times-circle"></i>
-            </div>
-            <div class="kpi-content">
-              <h3 id="monthly-revenue"></h3>
-              <p>Rejected Orders</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Production Pipeline -->
-        <div class="card">
-          <div class="card-header">
-            <h3>Production Pipeline</h3>
-          </div>
-          <div class="card-content">
-            <div class="pipeline-stages" id="pipeline-stages">
-              <div class="pipeline-stage stage-sourcing">
-                <div class="stage-icon">
-                  <i class="fas fa-search"></i>
-                </div>
-                <h4>Sourcing</h4>
-                <div class="count">0</div>
-                <div class="label">orders</div>
-              </div>
-
-              <div class="pipeline-stage stage-cutting">
-                <div class="stage-icon">
-                  <i class="fas fa-cut"></i>
-                </div>
-                <h4>Cutting</h4>
-                <div class="count">0</div>
-                <div class="label">orders</div>
-              </div>
-
-              <div class="pipeline-stage stage-stitching">
-                <div class="stage-icon">
-                  <i class="fas fa-ruler-combined"></i>
-                </div>
-                <h4>Stitching</h4>
-                <div class="count">0</div>
-                <div class="label">orders</div>
-              </div>
-
-              <div class="pipeline-stage stage-lasting">
-                <div class="stage-icon">
-                  <i class="fas fa-hammer"></i>
-                </div>
-                <h4>Lasting</h4>
-                <div class="count">0</div>
-                <div class="label">orders</div>
-              </div>
-
-              <div class="pipeline-stage stage-pasting">
-                <div class="stage-icon">
-                  <i class="fas fa-paste"></i>
-                </div>
-                <h4>Pasting</h4>
-                <div class="count">0</div>
-                <div class="label">orders</div>
-              </div>
-
-              <div class="pipeline-stage stage-finishing">
-                <div class="stage-icon">
-                  <i class="fas fa-star"></i>
-                </div>
-                <h4>Finishing</h4>
-                <div class="count">0</div>
-                <div class="label">orders</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Orders Page -->
-      <div id="orders" class="page">
-        <div class="page-header">
-          <div>
-            <h2>Production Orders</h2>
-            <p>Manage and track all footwear production orders</p>
-          </div>
-          <button class="btn btn-primary" onclick="openNewOrderModal()">
-            <i class="fas fa-plus"></i> New Order
-          </button>
-        </div>
-
-        <!-- Order Type Selector -->
-        <div class="order-type-selector">
-          <div class="card">
-            <div class="card-header">
-              <h3>Order Management</h3>
-              <div class="order-type-tabs">
-                <button
-                  class="tab-btn active"
-                  data-type="purchase"
-                  onclick="switchOrderType('purchase')"
-                >
-                  <i class="fas fa-file-invoice"></i> Purchase Orders
-                </button>
-                <button
-                  class="tab-btn"
-                  data-type="sales"
-                  onclick="switchOrderType('sales')"
-                >
-                  <i class="fas fa-handshake"></i> Sales Orders
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Purchase Orders Section -->
-        <div id="purchase-orders-section" class="order-section active">
-          <div class="card">
-            <div class="card-header">
-              <h3>Purchase Orders</h3>
-              <div class="table-filters">
-                <select id="po-stage-filter">
-                  <option value="">All Stages</option>
-                  <option value="sourcing">Sourcing</option>
-                  <option value="cutting">Cutting</option>
-                  <option value="stitching">Stitching</option>
-                  <option value="lasting">Lasting</option>
-                  <option value="pasting">Pasting</option>
-                  <option value="finishing">Finishing</option>
-                </select>
-                <input type="text" id="search-po" placeholder="Search PO..." />
-                <button class="btn btn-primary">Update Stage</button>
-              </div>
-            </div>
-            <div class="card-content">
-              <div class="table-container">
-                <table id="purchase-orders-table">
-                  <thead>
-                    <tr>
-                      <th><input type="checkbox" id="select-all-po" /></th>
-                      <th>PO Number</th>
-                      <th>Order ID</th>
-                      <th>Style</th>
-                    
-                      <th>Progress</th>
-                      <th>Assignee</th>
-                      <th>Due Date</th>
-                      <th>Related SOs</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody id="purchase-orders-tbody">
-                    <tr>
-                      <td><input type="checkbox" /></td>
-                      <td>PO-001</td>
-                      <td>ORD-2024-001</td>
-                      <td>Nike Air Max</td>
-                    
-                        <div class="progress-bar">
-                          <div class="progress-fill" style="width: 40%"></div>
-                        </div>
-                        40%
-                      </td>
-                      <td>John Doe</td>
-                      <td>2024-02-15</td>
-                      <td>
-                        <button
-                          class="btn btn-sm btn-secondary"
-                          onclick="viewRelatedSOs('PO-001')"
-                        >
-                          <i class="fas fa-eye"></i> View (2)
-                        </button>
-                      </td>
-                      <td>
-                        <button class="action-btn" title="Edit">
-                          <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="action-btn" title="View Details">
-                          <i class="fas fa-eye"></i>
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Sales Orders Section -->
-        <div id="sales-orders-section" class="order-section">
-          <div class="card">
-            <div class="card-header">
-              <h3>Sales Orders</h3>
-              <div class="table-filters">
-                <select id="so-stage-filter">
-                  <option value="">All Stages</option>
-                  <option value="sourcing">Sourcing</option>
-                  <option value="cutting">Cutting</option>
-                  <option value="stitching">Stitching</option>
-                  <option value="lasting">Lasting</option>
-                  <option value="pasting">Pasting</option>
-                  <option value="finishing">Finishing</option>
-                </select>
-                <select id="po-filter">
-                  <option value="">All Purchase Orders</option>
-                  <option value="PO-001">PO-001</option>
-                  <option value="PO-002">PO-002</option>
-                  <option value="PO-003">PO-003</option>
-                </select>
-                <input type="text" id="search-so" placeholder="Search SO..." />
-                <button class="btn btn-primary">Update Stage</button>
-              </div>
-            </div>
-            <div class="card-content">
-              <div class="table-container">
-                <table id="sales-orders-table">
-                  <thead>
-                    <tr>
-                      <th><input type="checkbox" id="select-all-so" /></th>
-                      <th>SO Number</th>
-                      <th>PO Number</th>
-                      <th>Customer</th>
-                      <th>Style</th>
-                      <th>Current Stage</th>
-                      <th>Progress</th>
-                      <th>Assignee</th>
-                      <th>Due Date</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody id="sales-orders-tbody">
-                    <tr>
-                      <td><input type="checkbox" /></td>
-                      <td>SO-001</td>
-                      <td>PO-001</td>
-                      <td>ABC Store</td>
-                      <td>Nike Air Max</td>
-                      <td>
-                        <span class="badge stage-stitching">Stitching</span>
-                      </td>
-                      <td>
-                        <div class="progress-bar">
-                          <div class="progress-fill" style="width: 60%"></div>
-                        </div>
-                        60%
-                      </td>
-                      <td>Jane Smith</td>
-                      <td>2024-02-10</td>
-                      <td>
-                        <button class="action-btn" title="Edit">
-                          <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="action-btn" title="View Details">
-                          <i class="fas fa-eye"></i>
-                        </button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><input type="checkbox" /></td>
-                      <td>SO-002</td>
-                      <td>PO-001</td>
-                      <td>XYZ Retail</td>
-                      <td>Nike Air Max</td>
-                      <td><span class="badge stage-lasting">Lasting</span></td>
-                      <td>
-                        <div class="progress-bar">
-                          <div class="progress-fill" style="width: 75%"></div>
-                        </div>
-                        75%
-                      </td>
-                      <td>Bob Johnson</td>
-                      <td>2024-02-12</td>
-                      <td>
-                        <button class="action-btn" title="Edit">
-                          <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="action-btn" title="View Details">
-                          <i class="fas fa-eye"></i>
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Recent Orders (now at bottom) -->
-        <div class="card">
-          <div class="card-header">
-            <h3>Recent Orders</h3>
-          </div>
-          <div class="card-content">
-            <div class="recent-orders" id="recent-orders">
-              <!-- Populated by JavaScript -->
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Documents Page -->
-      <div id="documents" class="page">
-        <div class="page-header">
-          <h2>Document Management</h2>
-          <p>Upload, organize, and access all order-related documents</p>
-        </div>
-
-        <!-- Quick Actions -->
-        <div class="quick-actions-grid">
-          <div
-            class="quick-action-card"
-            onclick="handleDocumentAction('upload-po')"
-          >
-            <div class="action-icon blue">
-              <i class="fas fa-file-text"></i>
-            </div>
-            <h3>Upload PO</h3>
-            <p>Upload purchase order documents</p>
-          </div>
-
-          <div
-            class="quick-action-card"
-            onclick="handleDocumentAction('bom-files')"
-          >
-            <div class="action-icon green">
-              <i class="fas fa-file-spreadsheet"></i>
-            </div>
-            <h3>BOM Files</h3>
-            <p>Manage bill of materials</p>
-          </div>
-
-          <div
-            class="quick-action-card"
-            onclick="handleDocumentAction('qc-reports')"
-          >
-            <div class="action-icon purple">
-              <i class="fas fa-clipboard-check"></i>
-            </div>
-            <h3>QC Reports</h3>
-            <p>Quality control documentation</p>
-          </div>
-
-          <div
-            class="quick-action-card"
-            onclick="handleDocumentAction('dispatch-docs')"
-          >
-            <div class="action-icon orange">
-              <i class="fas fa-truck"></i>
-            </div>
-            <h3>Dispatch Docs</h3>
-            <p>Shipping and dispatch documents</p>
-          </div>
-        </div>
-
-        <!-- Documents Table -->
-        <div class="card">
-          <div class="card-header">
-            <h3>Document Repository</h3>
-            <div class="table-filters">
-              <select id="document-type-filter">
-                <option value="">All Documents</option>
-                <option value="purchase_order">Purchase Orders</option>
-                <option value="bom">BOM Files</option>
-                <option value="qc_report">QC Reports</option>
-                <option value="dispatch_document">Dispatch Documents</option>
-              </select>
-              <input
-                type="text"
-                id="search-documents"
-                placeholder="Search documents..."
-              />
-            </div>
-          </div>
-          <div class="card-content">
-            <div class="table-container">
-              <table id="documents-table">
-                <thead>
-                  <tr>
-                    <th>Document</th>
-                    <th>Order ID</th>
-                    <th>Type</th>
-                    <th>Uploaded By</th>
-                    <th>Date</th>
-                    <th>Size</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody id="documents-tbody">
-                  <!-- Populated by JavaScript -->
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Quality Control Page -->
-      <div id="quality" class="page">
-        <div class="page-header">
-          <div>
-            <h2>Quality Control</h2>
-            <p>Manage QC inspections and reports for all footwear orders</p>
-          </div>
-          <button class="btn btn-accent" onclick="openQcBot()">
-            <i class="fas fa-robot"></i> QC AI Bot
-            <i class="fas fa-external-link-alt"></i>
-          </button>
-        </div>
-
-        <!-- QC Summary Cards -->
-        <div class="qc-summary-grid">
-          <div class="qc-summary-card green">
-            <div class="qc-icon">
-              <i class="fas fa-check-circle"></i>
-            </div>
-            <div class="qc-content">
-              <h3 id="qc-passed">0</h3>
-              <p>Orders Passed</p>
-            </div>
-          </div>
-
-          <div class="qc-summary-card yellow">
-            <div class="qc-icon">
-              <i class="fas fa-clock"></i>
-            </div>
-            <div class="qc-content">
-              <h3 id="qc-pending">0</h3>
-              <p>Pending Review</p>
-            </div>
-          </div>
-
-          <div class="qc-summary-card red">
-            <div class="qc-icon">
-              <i class="fas fa-exclamation-triangle"></i>
-            </div>
-            <div class="qc-content">
-              <h3 id="qc-failed">0</h3>
-              <p>Failed QC</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- QC Reports Table -->
-        <div class="card">
-          <div class="card-header">
-            <h3>QC Reports by Style</h3>
-            <div class="table-filters">
-              <select id="qc-status-filter">
-                <option value="">All Statuses</option>
-                <option value="passed">Passed</option>
-                <option value="failed">Failed</option>
-                <option value="pending">Pending</option>
-              </select>
-              <button class="btn btn-primary" onclick="openNewQcReportModal()">
-                New QC Report
-              </button>
-            </div>
-          </div>
-          <div class="card-content">
-            <div class="table-container">
-              <table id="qc-reports-table">
-                <thead>
-                  <tr>
-                    <th>Order ID</th>
-                    <th>Style</th>
-                    <th>Inspector</th>
-                    <th>Inspection Date</th>
-                    <th>Defects Found</th>
-                    <th>QC Status</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody id="qc-reports-tbody">
-                  <!-- Populated by JavaScript -->
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Production Page -->
-      <div id="production" class="page">
-        <div class="page-header">
-          <h2>Production Tracking</h2>
-          <p>Monitor production stages and update order progress</p>
-        </div>
-
-        <!-- Production Pipeline Overview -->
-        <div class="card">
-          <div class="card-header">
-            <h3>Production Pipeline</h3>
-          </div>
-          <div class="card-content">
-            <div class="production-pipeline" id="production-pipeline">
-              <div class="production-stage stage-sourcing">
-                <div class="stage-icon">
-                  <i class="fas fa-search"></i>
-                </div>
-                <h4>Sourcing</h4>
-                <div class="count">0</div>
-                <div class="label">orders</div>
-              </div>
-
-              <div class="production-stage stage-cutting">
-                <div class="stage-icon">
-                  <i class="fas fa-cut"></i>
-                </div>
-                <h4>Cutting</h4>
-                <div class="count">0</div>
-                <div class="label">orders</div>
-              </div>
-
-              <div class="production-stage stage-stitching">
-                <div class="stage-icon">
-                  <i class="fas fa-ruler-combined"></i>
-                </div>
-                <h4>Stitching</h4>
-                <div class="count">0</div>
-                <div class="label">orders</div>
-              </div>
-
-              <div class="production-stage stage-lasting">
-                <div class="stage-icon">
-                  <i class="fas fa-hammer"></i>
-                </div>
-                <h4>Lasting</h4>
-                <div class="count">0</div>
-                <div class="label">orders</div>
-              </div>
-
-              <div class="production-stage stage-pasting">
-                <div class="stage-icon">
-                  <i class="fas fa-paste"></i>
-                </div>
-                <h4>Pasting</h4>
-                <div class="count">0</div>
-                <div class="label">orders</div>
-              </div>
-
-              <div class="production-stage stage-finishing">
-                <div class="stage-icon">
-                  <i class="fas fa-star"></i>
-                </div>
-                <h4>Finishing</h4>
-                <div class="count">0</div>
-                <div class="label">orders</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- New Order Modal -->
-    <div id="new-order-modal" class="modal">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h3>Create New Order</h3>
-          <button class="modal-close" onclick="closeNewOrderModal()">
-            &times;
-          </button>
-        </div>
-        <form id="new-order-form" enctype="multipart/form-data">
-          <div class="form-section">
-            <label>Upload Purchase Order</label>
-            <div class="file-upload">
-              <div
-                class="upload-area"
-                onclick="document.getElementById('po-file').click()"
-              >
-                <i class="fas fa-cloud-upload-alt"></i>
-                <p>Drop PO file here or click to browse</p>
-                <small>PDF, Excel, or Word documents up to 10MB</small>
-              </div>
-              <input
-                type="file"
-                id="po-file"
-                name="po_file"
-                accept=".pdf,.xlsx,.xls,.doc,.docx"
-                style="display: none"
-              />
-              <div class="file-info" id="file-info" style="display: none"></div>
-            </div>
-          </div>
-
-          <div class="form-grid">
-            <div class="form-group">
-              <label for="customer-id">Customer ID *</label>
-              <input type="text" id="customer-id" name="customer_id" required />
-            </div>
-            <div class="form-group">
-              <label for="customer-name">Customer Name *</label>
-              <input
-                type="text"
-                id="customer-name"
-                name="customer_name"
-                required
-              />
-            </div>
-            <div class="form-group">
-              <label for="style">Style *</label>
-              <input type="text" id="style" name="style" required />
-            </div>
-            <div class="form-group">
-              <label for="quantity">Quantity *</label>
-              <input
-                type="number"
-                id="quantity"
-                name="quantity"
-                min="1"
-                required
-              />
-            </div>
-            <div class="form-group">
-              <label for="order-amount">Order Amount</label>
-              <input
-                type="text"
-                id="order-amount"
-                name="order_amount"
-                placeholder="$0.00"
-              />
-            </div>
-            <div class="form-group">
-              <label for="due-date">Due Date</label>
-              <input type="date" id="due-date" name="due_date" />
-            </div>
-            <div class="form-group">
-              <label for="priority">Priority</label>
-              <select id="priority" name="priority">
-                <option value="normal">Normal</option>
-                <option value="high">High</option>
-                <option value="urgent">Urgent</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="customer-requirements">Customer Requirements</label>
-            <textarea
-              id="customer-requirements"
-              name="customer_requirements"
-              rows="3"
-              placeholder="Special instructions or requirements..."
-            ></textarea>
-          </div>
-
-          <div class="modal-actions">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              onclick="closeNewOrderModal()"
-            >
-              Cancel
-            </button>
-            <button type="submit" class="btn btn-primary">Create Order</button>
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <script>
-      // Navigation functionality
-      document.querySelectorAll(".nav-link").forEach((link) => {
-        link.addEventListener("click", function (e) {
-          e.preventDefault();
-          const page = this.dataset.page;
-
-          // Update active nav link
-          document
-            .querySelectorAll(".nav-link")
-            .forEach((l) => l.classList.remove("active"));
-          this.classList.add("active");
-
-          // Show corresponding page
-          document
-            .querySelectorAll(".page")
-            .forEach((p) => p.classList.remove("active"));
-          document.getElementById(page).classList.add("active");
-        });
-      });
-
-      // Order type switching functionality
-      function switchOrderType(type) {
-        // Update tab buttons
-        document
-          .querySelectorAll(".tab-btn")
-          .forEach((btn) => btn.classList.remove("active"));
-        document.querySelector(`[data-type="${type}"]`).classList.add("active");
-
-        // Show/hide order sections
-        document
-          .querySelectorAll(".order-section")
-          .forEach((section) => section.classList.remove("active"));
-        document
-          .getElementById(`${type}-orders-section`)
-          .classList.add("active");
-      }
-
-      // View related sales orders
-      function viewRelatedSOs(poNumber) {
-        // Switch to sales orders tab
-        switchOrderType("sales");
-
-        // Filter sales orders by PO number
-        const poFilter = document.getElementById("po-filter");
-        poFilter.value = poNumber;
-
-        console.log(`Viewing sales orders for ${poNumber}`);
-      }
-
-      // Modal functions
-      function openNewOrderModal() {
-        document.getElementById("new-order-modal").classList.add("active");
-      }
-
-      function closeNewOrderModal() {
-        document.getElementById("new-order-modal").classList.remove("active");
-      }
-
-      function openQcBot() {
-        window.open(
-          "https://open-aicode-uqjmrr2kqqusmuittt3pqq.streamlit.app/",
-          "_blank"
-        );
-      }
-
-      function openNewQcReportModal() {
-        console.log("Opening new QC report modal");
-      }
-
-      function handleDocumentAction(action) {
-        console.log("Document action:", action);
-      }
-
-      // File upload handling
-      document
-        .getElementById("po-file")
-        .addEventListener("change", function (e) {
-          const file = e.target.files[0];
-          const fileInfo = document.getElementById("file-info");
-
-          if (file) {
-            fileInfo.innerHTML = `
-            <i class="fas fa-file"></i>
-            <span>${file.name}</span>
-            <small>(${(file.size / 1024 / 1024).toFixed(2)} MB)</small>
-          `;
-            fileInfo.style.display = "block";
-          }
-        });
-
-      // Form submission
-      document
-        .getElementById("new-order-form")
-        .addEventListener("submit", function (e) {
-          e.preventDefault();
-          console.log("Form submitted");
-          closeNewOrderModal();
-        });
-
-      // Initialize sample data
-      function initializeSampleData() {
-        // Update KPI cards with sample data
-        document.getElementById("active-orders").textContent = "24";
-        document.getElementById("completed-orders").textContent = "156";
-        document.getElementById("pending-qc").textContent = "8";
-        document.getElementById("monthly-revenue").textContent = "12";
-
-        // Update QC summary
-        document.getElementById("qc-passed").textContent = "142";
-        document.getElementById("qc-pending").textContent = "8";
-        document.getElementById("qc-failed").textContent = "6";
-
-        // Update pipeline stage counts
-        updatePipelineStages();
-      }
-
-      function updatePipelineStages() {
-        const stages = {
-          sourcing: 5,
-          cutting: 8,
-          stitching: 12,
-          lasting: 6,
-          pasting: 4,
-          finishing: 3,
-        };
-
-        Object.keys(stages).forEach((stage) => {
-          const elements = document.querySelectorAll(`.stage-${stage} .count`);
-          elements.forEach((el) => {
-            el.textContent = stages[stage];
-          });
-        });
-      }
-
-      // Initialize the application
-      document.addEventListener("DOMContentLoaded", function () {
-        initializeSampleData();
-      });
-    </script>
-  </body>
-</html>
+  overflow
