@@ -407,10 +407,11 @@ body {
 }
 
 .card-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  max-width: 100%;     /* shrink if too wide */
+  max-height: 100%;    /* shrink if too tall */
+  object-fit: contain; /* show full product */
 }
+
 
 .card-title {
   font-size: 16px;
