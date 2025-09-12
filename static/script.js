@@ -101,12 +101,13 @@ async function loadDashboardData() {
 function updateDashboardUI() {
   // Update KPI cards
   document.getElementById("active-orders").textContent =
-    1;
-  document.getElementById("completed-orders").textContent =1;
+    dashboardStats.active_orders || 0;
+  document.getElementById("completed-orders").textContent =
+    dashboardStats.completed_orders || 0;
   document.getElementById("pending-qc").textContent =
-     2;
+    dashboardStats.pending_qc || 0;
   document.getElementById("monthly-revenue").textContent =
-    2;
+    dashboardStats.monthly_revenue || "0";
 
   // Update pipeline stages
   updatePipelineStages();
